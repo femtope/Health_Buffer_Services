@@ -1,0 +1,170 @@
+#map {
+    height: 860px;
+}
+
+.skin-red-light .wrapper,
+.skin-red-light .main-sidebar,
+.skin-red-light .left-side {
+    background-color: rgba(0, 0, 0, 0.62);
+}
+
+.main-sidebar,
+.left-side {
+    width: 350px;
+}
+
+.sidebar-collapse .main-sidebar,
+.sidebar-collapse .left-side {
+    width: 0;
+}
+
+.white {
+    color: aliceblue;
+}
+
+.black {
+    color: black;
+}
+
+.red {
+    color: red;
+}
+
+.bg-aqua,
+.callout.callout-info,
+.alert-info,
+.label-info,
+.modal-info .modal-body {
+    background-color: rgba(83, 86, 76, 0) !important;
+}
+
+.alert-info {
+    border-color: rgba(83, 86, 76, 0);
+}
+
+.btn-Education {
+    background-color: rgba(255, 255, 102, 0.5);
+    border-color: rgba(255, 255, 102, 0.5);
+    color: black
+}
+
+.btn-Nutrition {
+    background-color: rgba(255, 120, 0, 0.5);
+    border-color: rgba(255, 120, 0, 0.5);
+    color: black
+}
+
+.btn-Agriculture {
+    background-color: rgba(51, 204, 51, 0.5);
+    border-color: rgba(51, 204, 51, 0.5);
+    color: black
+}
+
+.btn-Health {
+    background-color: rgba(0, 153, 204, 0.5);
+    border-color: rgba(0, 153, 204, 0.5);
+    color: black
+}
+
+.btn-Research {
+    background-color: rgba(238, 130, 238, 0.5);
+    border-color: rgba(238, 130, 238, 0.5);
+    color: black
+}
+
+.btn-Finance {
+    background-color: rgba(204, 51, 0, 0.5);
+    border-color: rgba(204, 51, 0, 0.5);
+    color: black
+}
+
+.info-box {
+    overflow: auto;
+    font-size: 10px;
+}
+
+.labelLga-icon {
+    color: darkmagenta;
+    font-weight:bold;
+    font-size: 12px;
+    text-shadow: '#ffffff';
+}
+
+.labelWard-icon {
+    color: '#41006D';
+    text-shadow: '#ffffff';
+    font-size: bold 10px;
+}
+
+.One-color {
+    background-color: green;
+}
+
+.Two-color {
+    background-color: aqua;
+}
+
+.Three-color {
+    background-color: yellow;
+}
+
+.Four-color {
+    background-color: red;
+  }
+
+.Five-color {
+    background-color: purple;
+}
+
+.Six-color {
+    background-color: brown;
+}
+
+.Seven-color {
+    background-color: magenta;
+}
+
+.pad{
+    padding-left: 5px;
+    height: 1.1em;
+}
+.pad1{
+    padding-top: 5px;
+    height: 4em;
+}
+.pad2 {
+    padding-bottom: 5px;
+    height: 2em;
+}
+.pad3 {
+    padding-bottom: 25px;
+    height: 2em;
+}
+
+.special-size{
+    font: bold 26px "Agency FB";
+}
+
+.special-size1{
+    font: bold 22px "Agency FB";
+}
+
+.country{
+    font: 20px "Agency FB";
+}
+
+.detailbox {
+    font-size: 13px;
+    text-align: justify;
+    overflow-y: scroll;
+
+}
+
+#spinposition {
+    position: absolute;
+    top: 300px;
+    right: 700px;
+    width: 100px;
+    height: 100px;
+    background: transparent;
+}
