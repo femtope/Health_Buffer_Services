@@ -1,21 +1,21 @@
-var monthSelect = '',
-    yearRange = [],
-    conflictScenario = '',
+var scope = '',
+    sectors = [],
     geoData = null,
     dataLayer = null,
     markerGroup = null,
     stateData = null,
-    stateLayer, lgaLayer,
+    stateLayer = null, lgaLayer,
     lgaLabels = [],
     showLga = false
 
-
 var map = L.map('map', {
     center: [10, 8],
-    zoom: 8,
+    zoom: 7,
     zoomControl: false,
-    minZoom: 7
-
+    minZoom: 6
+        /*,
+        crs: L.CRS.EPSG4326*/
+        //layers:[stateLayer]
 });
 
 
@@ -33,9 +33,7 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 new L.Control.Zoom({
-    position: 'topright',
-    zoomInTitle: 'Zoom In',
-    zoomOutTitle: 'Zoom Out'
+    position: 'topright'
 }).addTo(map);
 
 L.control.scale({
@@ -47,7 +45,7 @@ L.control.scale({
 
 function adjustLayerbyZoom(zoomLevel) {
 
-    if (zoomLevel > 8) {
+    if (zoomLevel > 12) {
         if (!showLga) {
             map.addLayer(lgaLayer)
                 //Add labels to the LGAs
@@ -64,51 +62,99 @@ function adjustLayerbyZoom(zoomLevel) {
 
         showLga = false
     }
-
 }
 
 function triggerUiUpdate() {
-    conflictScenario = $('#categoryScope').val()
-    monthSelect = $('#monthScope').val()
-    yr = $("#amount").val();
-    yrs = yr.split('  -  ');
-
-    var query = buildQuery(monthSelect, yrs, conflictScenario)
-    console.log("QUERY:  ",query)
-    getData(query)
-    map.setZoom(6)
+    scope = $('#projectScope').val()
+   // var query = buildQuery(scope, sectors)
+    //getData(query)
 }
 
 
 
-function buildQuery(monthSelect, yearRange, conflictScenario) {
-  var needsAnd = false;
-  query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM conflict_and_security_data';
-  if (monthSelect.length > 0 || yearRange.length > 0 || conflictScenario > 0){
-    query = query.concat(' WHERE')
-    if (conflictScenario.length > 0){
-      query = query.concat(" conflict_scenario = '".concat(conflictScenario.concat("'")))
-      needsAnd = true
-    }
-    if (monthSelect.length > 0){
-      query = needsAnd  ? query.concat(" AND event_month = '".concat(monthSelect.concat("'"))) :  query.concat(" event_month = '".concat(monthSelect.concat("'")))
-      needsAnd = true
-    }
+/*
+function setView() {
+  var listState = null
+  var stateList;
+  stateSelect = $('#stateScope').val()
+  console.log("State Selected is:  ", stateSelect)
 
-    if (yearRange.length > 1){
-      query = needsAnd  ? query.concat(" AND event_year BETWEEN ".concat(yearRange[0]).concat(" AND ".concat(yearRange[1]))) : query = query.concat(" event_year BETWEEN ".concat(yearRange[0]).concat(" AND ".concat(yearRange[1])))
-    }
+  $.get('resources/state_boundary.geojson', function (stateData) {
+    listState = JSON.parse(stateData)
+     console.log("Yemo:  ", listState)
+  });
 
-    else query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM conflict_and_security_data';
+    var stateLayer1 = L.geoJson(listState, {
+      filter: function(feature, layer) {
+        return feature.properties.StateName == stateSelect
+      }
+    }).addTo(map)
+}
+*/
+
+function lgaShow() {
+    stateSelect1 = $('#stateScope').val();
+    show = document.getElementById("lgaScope");
+    if(stateSelect1 == "Kano") {
+    show.style.visibility="visible"
   }
-  return query
-
+  else{
+    show.style.visibility="hidden"
+  }
 }
+
+
+
+function buildSelectedSectors(sector) {
+    var idx = sectors.indexOf(sector)
+    if (idx > -1)
+        sectors.splice(idx, 1)
+    else if (idx == -1) {
+        if (sector != null)
+            sectors.push(sector)
+    }
+    toggleClass(sector)
+    triggerUiUpdate()
+}
+
+function toggleClass(id) {
+    /*console.log("Selected", id)*/
+    if (id != null) {
+        if ($('#'.concat(id)).hasClass('btn-primary')) {
+            $('#'.concat(id)).removeClass('btn-primary')
+            $('#'.concat(id)).addClass('btn-'.concat(id))
+        } else if ($('#'.concat(id)).hasClass('btn-'.concat(id))) {
+            $('#'.concat(id)).removeClass('btn-'.concat(id))
+            $('#'.concat(id)).addClass('btn-primary')
+        }
+    }
+}
+
+function buildQuery(_scope, _sectors) {
+    //returns geojson
+    var containsAnd = false;
+    query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM granteedata_copy';
+    query = (_scope.length > 0 || _sectors.length > 0) ? query.concat(' WHERE') : query;
+    if (_scope.length > 0) {
+        query = (_sectors.length > 0) ? query.concat(" scope_of_work = '".concat(scope.concat("' AND"))) : query.concat(" scope_of_work = '".concat(scope.concat("'")))
+    }
+    if (_sectors.length > 0) {
+        for (var i = 0; i < _sectors.length; i++) {
+            if (i == 0)
+                query = query.concat(" sector='" + _sectors[i] + "'");
+            else query = query.concat(" OR sector='" + _sectors[i] + "'")
+        }
+    }
+    //console.log("Query ", query)
+    return query;
+}
+
 
 //TODO: fix the issue of lga layer not reoving after data filtering
 function addDataToMap(geoData) {
     // adjustLayerbyZoom(map.getZoom())
     //remove all layers first
+
 
     if (dataLayer != null)
         map.removeLayer(dataLayer)
@@ -117,64 +163,56 @@ function addDataToMap(geoData) {
         map.removeLayer(markerGroup)
 
 
-    var _radius = 12
+    var _radius = 10
     var _outColor = "#fff"
     var _weight = 1
     var _opacity = 1
-    var _fillOpacity = 1.0
+    var _fillOpacity = 0.5
 
     var allColours = {
-        'Assassination/Homicide/Armed Robbery/Arm Assault': {
+        'Nutrition': {
             radius: _radius,
-            fillColor: "#ffff00",
+            fillColor: "#ff7800",
             color: _outColor,
             weight: _weight,
             opacity: _opacity,
             fillOpacity: _fillOpacity
         },
-        'Civil Conflicts': {
+        'Agriculture': {
             radius: _radius,
-            fillColor: "#008000",
+            fillColor: "#33cc33",
             color: _outColor,
             weight: _weight,
             opacity: _opacity,
             fillOpacity: _fillOpacity
         },
-        'Kidnapping/Abductions': {
+        'Health': {
             radius: _radius,
-            fillColor: "#00ffff",
+            fillColor: "#0099cc",
             color: _outColor,
             weight: _weight,
             opacity: _opacity,
             fillOpacity: _fillOpacity
         },
-        'Insurgency/Terrorists Attacks': {
+        'Education': {
             radius: _radius,
-            fillColor: "#ff0000",
+            fillColor: "#ffff66",
             color: _outColor,
             weight: _weight,
             opacity: _opacity,
             fillOpacity: _fillOpacity
         },
-        'Religious Conflicts': {
+        'Research': {
             radius: _radius,
-            fillColor: "#800080",
+            fillColor: "#ee82ee",
             color: _outColor,
             weight: _weight,
             opacity: _opacity,
             fillOpacity: _fillOpacity
         },
-        'Protests/Demonstrations': {
+        'Finance': {
             radius: _radius,
-            fillColor: "#a52a2a",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Others': {
-            radius: _radius,
-            fillColor: "#ff00ff",
+            fillColor: "#cc3300",
             color: _outColor,
             weight: _weight,
             opacity: _opacity,
@@ -193,7 +231,7 @@ function addDataToMap(geoData) {
         //console.log("geoData", geoData)
     dataLayer = L.geoJson(geoData, {
         pointToLayer: function (feature, latlng) {
-            var marker = L.circleMarker(latlng, allColours[feature.properties.conflict_scenario])
+            var marker = L.circleMarker(latlng, allColours[feature.properties.sector])
                 //markerGroup.addLayer(marker);
             return marker
         },
@@ -214,44 +252,56 @@ function addDataToMap(geoData) {
 
 }
 
+
 function addAdminLayersToMap(layers) {
+
     var layerStyles = {
             'state': {
                 "clickable": true,
                 "color": '#B81609',
                 "fillColor": '#FFFFFF',
-                "weight": 1.5,
-                "opacity": 0.2,
+                "weight": 2.0,
+                "opacity": 0.7,
                 "fillOpacity": 0.1
             },
             'lga': {
                 "clickable": true,
-                "color": '#A52A2A',
+                "color": '#244B54',
                 "fillColor": '#FFFFFF',
                 "weight": 1.5,
-                "opacity": 0.4,
+                "opacity": 0.7,
                 "fillOpacity": 0.1
             }
-      }
+        }
+    stateSelect = $('#stateScope').val()
+    //filter: function(feature, layer)
+    if(stateLayer != null)
+      map.removeLayer(stateLayer)
 
     stateLayer = L.geoJson(layers['state'], {
-        style: layerStyles['state']
+        filter: function(feature) {
+          return feature.properties.StateName === stateSelect
+        },
+        style: layerStyles['state'],
     }).addTo(map)
+    map.fitBounds(stateLayer.getBounds())
+
     lgaLayer = L.geoJson(layers['lga'], {
         style: layerStyles['lga'],
         onEachFeature: function (feature, layer) {
             var labelIcon = L.divIcon({
-                className: 'labelLga-icon',
+                className: 'label-icon',
                 html: feature.properties.LGAName
             })
             lgaLabels.push(L.marker(layer.getBounds().getCenter(), {
                     icon: labelIcon
                 }))
-
+                //layer.bindPopup(feature.properties.LGAName)
         }
     })
-
 }
+
+
 
 
 function displayInfo(feature) {
@@ -271,7 +321,7 @@ function normalizeName(source) {
 
 function buildPopupContent(feature) {
     var subcontent = ''
-    var propertyNames = ['event_type', 'event_year', 'event_month', 'event_date', 'state', 'lga', 'location', 'source', 'perpetrator', 'notes', 'fatalities', 'conflict_scenario']
+    var propertyNames = ['sector', 'state', 'scope_of_work', 'duration', 'bmgf_point', 'grantee_organisation', 'beneficiary', 'title_of_grant', 'nature_of_work', 'focal_state', 'organisation']
     for (var i = 0; i < propertyNames.length; i++) {
         subcontent = subcontent.concat('<p><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</p>')
 
@@ -313,7 +363,6 @@ function getAdminLayers() {
         }).fail(function () {
             logError(null)
         })
-
     }).fail(function () {
         logError(null) //TODO: Fix this terrible code
     })
@@ -321,6 +370,22 @@ function getAdminLayers() {
 
 function logError(error) {
     console.log("error!")
+}
+
+function dropDownState() {
+  var stateItem = [], stateList = []
+  $.get('resources/state_boundary.geojson', function (stateData) {
+    stateItem = JSON.parse(stateData)
+    console.log("Here:   ", stateItem)
+  })
+
+
+  var $StateName = $('#StateName');
+  $.each(stateItem, function () {
+
+    $('<option>' + this.features.properties.StateName + '</option>').appendTo($StateName);
+    //console.log("Testing Array Value:  ", feature.properties.StateName)
+  });
 }
 
 getAdminLayers()

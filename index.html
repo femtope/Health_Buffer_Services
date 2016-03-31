@@ -8,10 +8,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Conflicts and Security Map | eHealth Africa</title>
+    <title>Health Facility Services | eHealth Africa</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-   <link rel="stylesheet" href="dist/css/globe.css">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -24,24 +23,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
-
 
     <link rel="stylesheet" href="plugins/leaflet/leaflet.css">
 
     <link rel="stylesheet" href="dist/css/main.css">
 
-     <!-- Marker Cluster -->
     <link rel="stylesheet" href="plugins/MarkerCluster/MarkerCluster.css">
     <link rel="stylesheet" href="plugins/MarkerCluster/MarkerCluster.Default.css">
-
-     <!-- JQuery Slider -->
-    <link rel="stylesheet" href="dist/css/jquery-ui.css">
-    <link rel="stylesheet" href="dist/css/iThing.css">
-
-
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 
 </head>
 
@@ -50,225 +40,190 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Main Header -->
         <header class="main-header">
-          <!-- Header Navbar -->
-          <nav class="navbar navbar-static-top" role="navigation">
-            <a href="#" class="navbar-brand"><strong class="special-size"><b>Health Facility(ies) Services </b></strong></a>
-            <!-- Sidebar Toggle Button -->
-              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                  <span class="sr-only">Toggle navigation </span>
-              </a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="navbar-brand"><b>Health Facility(ies) Service(s)</b></a>
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
                 <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
 
-             <!-- <div class="navbar-custom-menu">
-              <div class="alert alert-info sideColor">
-                    <h4 class="special-size1"><i class="icon fa fa-fire"></i>Conflicts Category</h4>
-                      <div class="form-group">
-                        <select id="categoryScope" onchange="triggerUiUpdate()" class="form-control">
-                            <option value="">All</option>
-                            <option value="Civil Conflicts">Civil Conflicts</option>
-                            <option value="Kidnapping/Abductions">Kidnapping/Abductions</option>
-                            <option value="Assassination/Homicide/Armed Robbery/Arm Assault">Assassination/Homicide/Armed Robbery/Arm Assault</option>
-                            <option value="Insurgency/Terrorists Attacks">Insurgency/Terrorists Attacks</option>
-                            <option value="Religious Conflicts">Religious Conflicts</option>
-                            <option value="Protests/Demonstrations">Protests/Demonstrations</option>
-                            <option value="Others">Others</option>
-                        </select>
-                    </div>
+                    </ul>
                 </div>
-              </div>
-
-              <div class="navbar-custom-menu">
-              <div class="alert alert-info sideColor">
-                <h4 class="special-size1"><i class="icon fa fa-calendar-check-o"></i>Year Ranges</h4>
-                  <div class="form-group">
-                    <label for="amount"> Year Ranges: </label>
-                    <input type="text" id="amount" readonly style="border:1; color:#000000; font-weight:bold; text-align:center" onclick="triggerUIUpdate()">
-                  </div>
-                <div id="slider-range"></div>
-
-                </div>
-              </div>
-
-              <div class="navbar-custom-menu">
-                     <div class="alert alert-info sideColor">
-                        <h4 class="special-size1"><i class="icon fa fa-calendar-check-o"></i>Month </h4>
-                      <div class="form-group">
-                        <select id="monthScope" onchange="triggerUiUpdate()" class="form-control">
-                            <option value="">All</option>
-                            <option value="January">January</option>
-                            <option value="February">February</option>
-                            <option value="March">March</option>
-                            <option value="April">April</option>
-                            <option value="May">May</option>
-                            <option value="June">June</option>
-                            <option value="July">July</option>
-                            <option value="August">August</option>
-                            <option value="September">September</option>
-                            <option value="October">October</option>
-                            <option value="November">November</option>
-                            <option value="December">December</option>
-                        </select>
-                      </div>
-                  </div>
-                </div>
-
-
-            <div class="navbar-custom-menu" id="turnglobe">
-              <div class="alert alert-info sideColor">
-
-                <div id="worldmap"></div>
-
-                </div>
-              </div>-->
-
             </nav>
-
-
         </header>
-
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar main-sidebar-light sidebar_edit">
+            <section class="sidebar">
+                <div class="row">
+                    <!--<h3 class="white text-center"><i class="icon fa fa-spinner"></i></h3>-->
+                </div>
+                <div class="alert alert-info sideColor">
 
-          <section class="pad1">
+                    <h4><i class="icon fa fa-globe"></i>State Level</h4>
+                    <div class="form-group">
+                      <select id="stateScope" onchange=" lgaShow(); getAdminLayers()" class="form-control">
+                            <option value="">Select... </option>
+                            <option value="Abia">Abia</option>
+                            <option value="Adamawa">Adamawa</option>
+                            <option value="Akwa Ibom">Akwa Ibom</option>
+                            <option value="Anambra">Anambra</option>
+                            <option value="Bauchi">Bauchi</option>
+                            <option value="Bayelsa">Bayelsa</option>
+                            <option value="Benue">Benue</option>
+                            <option value="Borno">Borno</option>
+                            <option value="Cross River">Cross River</option>
+                            <option value="Delta">Delta</option>
+                            <option value="Ebonyi">Ebonyi</option>
+                            <option value="Edo">Edo</option>
+                            <option value="Ekiti">Ekiti</option>
+                            <option value="Enugu">Enugu</option>
+                            <option value="Fct, Abuja">Fct, Abuja</option>
+                            <option value="Gombe">Gombe</option>
+                            <option value="Imo">Imo</option>
+                            <option value="Jigawa">Jigawa</option>
+                            <option value="Kaduna">Kaduna</option>
+                            <option value="Kano">Kano</option>
+                            <option value="Katsina">Katsina</option>
+                            <option value="Kebbi">Kebbi</option>
+                            <option value="Kogi">Kogi</option>
+                            <option value="Kwara">Kwara</option>
+                            <option value="Lagos">Lagos</option>
+                            <option value="Nasarawa">Nasarawa</option>
+                            <option value="Niger">Niger</option>
+                            <option value="Ogun">Ogun</option>
+                            <option value="Ondo">Ondo</option>
+                            <option value="Osun">Osun</option>
+                            <option value="Oyo">Oyo</option>
+                            <option value="Plateau">Plateau</option>
+                            <option value="Rivers">Rivers</option>
+                            <option value="Sokoto">Sokoto</option>
+                            <option value="Taraba">Taraba</option>
+                            <option value="Yobe">Yobe</option>
+                            <option value="Zamfara">Zamfara</option>
+                        </select>
+                        <!--<select id="projectScope" onchange="buildSelectedSectors(null)" class="form-control">
+                            <option value="">All</option>
+                            <option value="National">National</option>
+                            <option value="State">State</option>
+                        </select>-->
+                    </div>
 
-          </section>
+                  <h4><i class="icon fa fa-globe"></i>LGA Level</h4>
+                    <div class="form-group">
+                      <select id="lgaScope" onclick="" class="form-control" style="visibility:hidden">
+						<option value="">Select... </option>
+                        <option value="Ajingi">Ajingi</option>
+						<option value="Albasu">Albasu</option>
+						<option value="Bagwai">Bagwai</option>
+						<option value="Bebeji">Bebeji</option>
+						<option value="Bichi">Bichi</option>
+						<option value="Bunkure">Bunkure</option>
+						<option value="Dala">Dala</option>
+						<option value="Dambatta">Dambatta</option>
+						<option value="Dawakin Kudu">Dawakin Kudu</option>
+						<option value="Dawakin Tofa">Dawakin Tofa</option>
+						<option value="Doguwa">Doguwa</option>
+						<option value="Fagge">Fagge</option>
+						<option value="Gabasawa">Gabasawa</option>
+						<option value="Garko">Garko</option>
+						<option value="Garum Mallam">Garum Mallam</option>
+						<option value="Gaya">Gaya</option>
+						<option value="Gezawa">Gezawa</option>
+						<option value="Gwale">Gwale</option>
+						<option value="Gwarzo">Gwarzo</option>
+						<option value="Kabo">Kabo</option>
+						<option value="Kano Municipal">Kano Municipal</option>
+						<option value="Karaye">Karaye</option>
+						<option value="Kibiya">Kibiya</option>
+						<option value="Kiru">Kiru</option>
+						<option value="Kumbotso">Kumbotso</option>
+						<option value="Kunchi">Kunchi</option>
+						<option value="Kura">Kura</option>
+						<option value="Madobi">Madobi</option>
+						<option value="Makoda">Makoda</option>
+						<option value="Minjibir">Minjibir</option>
+						<option value="Nassarawa">Nassarawa</option>
+						<option value="Rano">Rano</option>
+						<option value="Rimin Gado">Rimin Gado</option>
+						<option value="Rogo">Rogo</option>
+						<option value="Shanono">Shanono</option>
+						<option value="Sumaila">Sumaila</option>
+						<option value="Takai">Takai</option>
+						<option value="Tarauni">Tarauni</option>
+						<option value="Tofa">Tofa</option>
+						<option value="Tsanyawa">Tsanyawa</option>
+						<option value="Tudun Wada">Tudun Wada</option>
+						<option value="Ungogo">Ungogo</option>
+						<option value="Warawa">Warawa</option>
+						<option value="Wudil">Wudil</option>
+                      </select>
+			       </div>
+
+                </div>
+
+                <div class="row"></div>
+                <div class="alert alert-info sideColor">
+                    <h4><i class="icon fa  fa-crosshairs"></i>Sector</h4>
+                    <div class="box box-primary">
+                        <!--Buttons go here -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <button id="Education" onclick="buildSelectedSectors(this.id)" class="btn btn-sm btn-primary btnSector"><i class="fa fa-graduation-cap"></i> Education</button>
+                                <button id="Nutrition" onclick="buildSelectedSectors(this.id)" class="btn btn-sm btn-primary btnSector"><i class="fa fa-cutlery"></i> Nutrition</button>
+                                <button id="Finance" onclick="buildSelectedSectors(this.id)" class="btn btn-sm btn-primary btnSector"><i class="fa fa-money"></i> Finance</button>
+                            </div>
+
+                            <div class="form-group">
+                                <button id="Agriculture" onclick="buildSelectedSectors(this.id)" class="btn btn-sm btn-primary btnSector"><i class="fa fa-tree"></i> Agriculture</button>
+                                <button id="Health" onclick="buildSelectedSectors(this.id)" class="btn btn-sm btn-primary btnSector"><i class="fa fa-plus-square"></i> Health</button>
+                                <button id="Research" onclick="buildSelectedSectors(this.id)" class="btn btn-sm btn-primary btnSector"><i class="fa fa-cogs"></i> Research</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
 
 
-          <section class="sidebar">
 
-                <div class="alert alert-info sidecolor">
-                  <div class="row">
-                      <h3 class="white text-center"></h3>
-                  </div>
-                  <div class="row">
-                      <h3 class="white text-center"></h3>
-                  </div>
-                  <div class="row">
-                      <h3 class="white text-center"></h3>
-                  </div>
+                <div class="row"></div>
+
+            </section>
+            <section class="sidebar">
+                <div class="row"></div>
                 <div class="text-center">
                     <span class="info-box-text white">Currently Displaying:</span>
-                    <span class="info-box-number white"><big id="projectCount">0</big> Conflict Issues</span>
+                    <span class="info-box-number white"><big id="projectCount">0</big><small> Projects</small></span>
 
                 </div>
-              </div>
-
-
-
             </section>
-            <section class="sidebar">
-              <div></div>
-            </section>
-
-            <section class="sidebar">
-              <div class="row"></div>
-              <div class="alert alert-info sideColor">
-                  <div class="col-md-2">
-                    <div class="progress-group">
-                      <span class="progress-text">
-                        <div class="progress-sm pad2">
-                          <div class="progress-bar One-color" style="width: 100%"></div>
-                        </div>
-                      </span>
-
-                      <span class="progress-text">
-                        <div class="progress-sm pad2">
-                          <div class="progress-bar Two-color" style="width: 100%"></div>
-                        </div>
-                      </span>
-
-                      <span class="progress-text">
-                        <div class="progress-sm pad2">
-                          <div class="progress-bar Three-color" style="width: 100%"></div>
-                        </div>
-                      </span>
-
-                      <span class="progress-text">
-                        <div class="progress-sm pad2">
-                          <div class="progress-bar Four-color" style="width: 100%"></div>
-                        </div>
-                      </span>
-
-                      <span class="progress-text">
-                        <div class="progress-sm pad2">
-                          <div class="progress-bar Five-color" style="width: 100%"></div>
-                        </div>
-                      </span>
-
-                      <span class="progress-text">
-                        <div class="progress-sm pad2">
-                          <div class="progress-bar Six-color" style="width: 100%"></div>
-                        </div>
-                      </span>
-
-                      <span class="progress-text">
-                        <div class="progress-sm pad2">
-                          <div class="progress-bar Seven-color" style="width: 100%"></div>
-                        </div>
-                      </span>
-
-                    </div>
-                  </div>
-
-
-                <div class="col-md-0">
-                    <div class="text-left pad3">
-                        <span class="progress-text white"><big>Civil Conflicts</big></span>
-                    </div>
-
-                    <div class="text-left pad3">
-                        <span class="progress-text white"><big>Kidnapping/Abductions</big></span>
-                    </div>
-
-                  <div class="text-left pad3">
-                        <span class="progress-text white"><big>Assassination/Homicide/Armed</big></span>
-                    </div>
-
-                    <div class="text-left pad3">
-                        <span class="progress-text white"><big>Insurgency/Terrorists Attacks</big></span>
-                    </div>
-
-                  <div class="text-left pad3">
-                        <span class="progress-text white"><big>Religious Conflicts</big></span>
-                    </div>
-
-                  <div class="text-left pad3">
-                        <span class="progress-text white"><big>Protests/Demonstrations</big></span>
-                    </div>
-
-                    <div class="text-left pad3">
-                        <span class="progress-text white"><big>Others</big></span>
-                    </div>
-                </div>
-
-              </div>
-            </section>
-
-
 
             <section>
                 <div class="row"></div>
                 <div class="alert alert-info sideColor">
-
+                    <!-- <h4><i class="icon fa  fa-info-circle"></i>Info</h4>-->
                     <div class="box box-primary box-solid">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Details</h3>
+                            <h3 class="box-title">Info</h3>
                             <div class="box-tools pull-right">
                                 <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
-
+                            <!-- /.box-tools -->
                         </div>
-
-                        <div id="infoContent" class="box-body black info-box detailbox">
-                            <p>Click on any of the Project points to see full information here... </p>
+                        <!-- /.box-header -->
+                        <div id="infoContent" class="box-body black info-box">
+                            <p>Click on any of the Project points to see full information here..</p>
                         </div>
-
+                        <!-- /.box-body -->
                     </div>
 
                 </div>
 
             </section>
-
         </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -280,10 +235,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 </div>
                 <!-- Your Page Content Here -->
-
-              <div>
-                  <h7 class="red text-center"><i class="icon fa fa-spinner fa-5x" id="spinposition"></i></h7>
-                </div>
 
             </section>
             <!-- /.content -->
@@ -297,14 +248,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!--<span><img src="resources/eha-logo.png" alt="eHEalth Africa Logo"/></span>-->
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2016 <a target="_blank" href="http://ehealthafrica.org">eHealth Africa</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2015 <a target="_blank" href="http://ehealthafrica.org">eHealth Africa</a>.</strong> All rights reserved.
         </footer>
 
         <!-- jQuery 2.1.4 -->
 
-        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-        <script src="http://d3js.org/topojson.v1.min.js"></script>
-        <script src="dist/js/globe.js"></script>
+        <script src="plugins/leaflet/leaflet.js"></script>
         <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
         <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
         <script src="plugins/slimScroll/jquery.slimscroll.js"></script>
@@ -312,14 +261,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/app.min.js"></script>
-        <script src="plugins/leaflet/leaflet.js"></script>
+
         <script src="dist/js/main.js"></script>
         <script src="plugins/MarkerCluster/leaflet.markercluster-src.js"></script>
-
-        <!-- JQuery Slider -->
-        <script src="dist/js/jquery-ui.js"></script>
-        <script src="dist/js/slider.js"></script>
-
 
     </div>
 </body>
