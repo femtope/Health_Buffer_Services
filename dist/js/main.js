@@ -4,7 +4,7 @@ var scope = '',
     dataLayer = null,
     markerGroup = null,
     stateData = null,
-    stateLayer = null, lgaLayer,
+    stateLayer = null, lgaLayer = null,
     lgaLabels = [],
     showLga = false
 
@@ -70,27 +70,6 @@ function triggerUiUpdate() {
     //getData(query)
 }
 
-
-
-/*
-function setView() {
-  var listState = null
-  var stateList;
-  stateSelect = $('#stateScope').val()
-  console.log("State Selected is:  ", stateSelect)
-
-  $.get('resources/state_boundary.geojson', function (stateData) {
-    listState = JSON.parse(stateData)
-     console.log("Yemo:  ", listState)
-  });
-
-    var stateLayer1 = L.geoJson(listState, {
-      filter: function(feature, layer) {
-        return feature.properties.StateName == stateSelect
-      }
-    }).addTo(map)
-}
-*/
 
 function lgaShow() {
     stateSelect1 = $('#stateScope').val();
@@ -274,7 +253,7 @@ function addAdminLayersToMap(layers) {
             }
         }
     stateSelect = $('#stateScope').val()
-    //filter: function(feature, layer)
+    lgaSelect = $('#lgaScope').val()
     if(stateLayer != null)
       map.removeLayer(stateLayer)
 
@@ -286,19 +265,14 @@ function addAdminLayersToMap(layers) {
     }).addTo(map)
     map.fitBounds(stateLayer.getBounds())
 
+    // Adding LGA to Map
     lgaLayer = L.geoJson(layers['lga'], {
+        filter: function(feature) {
+          return feature.properties.StateName === lgaSelect
+    },
         style: layerStyles['lga'],
-        onEachFeature: function (feature, layer) {
-            var labelIcon = L.divIcon({
-                className: 'label-icon',
-                html: feature.properties.LGAName
-            })
-            lgaLabels.push(L.marker(layer.getBounds().getCenter(), {
-                    icon: labelIcon
-                }))
-                //layer.bindPopup(feature.properties.LGAName)
-        }
-    })
+      }).addTo(map)
+    map.fitBounds(lgaLayer.getBounds())
 }
 
 
@@ -359,10 +333,11 @@ function getAdminLayers() {
         $.get('resources/lga_boundary.geojson', function (lgaData) {
             adminLayers['lga'] = JSON.parse(lgaData)
                 //return the layers
-            addAdminLayersToMap(adminLayers)
+
         }).fail(function () {
             logError(null)
         })
+        addAdminLayersToMap(adminLayers)
     }).fail(function () {
         logError(null) //TODO: Fix this terrible code
     })
@@ -387,6 +362,11 @@ function dropDownState() {
     //console.log("Testing Array Value:  ", feature.properties.StateName)
   });
 }
+
+function zoomToLGA() {
+
+}
+
 
 getAdminLayers()
 triggerUiUpdate()
