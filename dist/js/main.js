@@ -6,7 +6,8 @@ var scope = '',
     stateData = null,
     stateLayer = null, lgaLayer = null,
     lgaLabels = [],
-    showLga = false
+    showLga = false,
+    typeList = [], serviceList = [], amenityList = []
 
 var map = L.map('map', {
     center: [10, 8],
@@ -23,9 +24,9 @@ map.fitBounds([
     [2.668432, 4.277144], [14.680073, 13.892007]
 ])
 
-map.on('zoomend', function () {
+/*map.on('zoomend', function () {
     adjustLayerbyZoom(map.getZoom())
-})
+})*/
 
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -43,7 +44,7 @@ L.control.scale({
     updateWhenIdle: true
 }).addTo(map);
 
-function adjustLayerbyZoom(zoomLevel) {
+/*function adjustLayerbyZoom(zoomLevel) {
 
     if (zoomLevel > 12) {
         if (!showLga) {
@@ -62,7 +63,7 @@ function adjustLayerbyZoom(zoomLevel) {
 
         showLga = false
     }
-}
+}*/
 
 function triggerUiUpdate() {
     scope = $('#projectScope').val()
@@ -245,9 +246,9 @@ function addAdminLayersToMap(layers) {
             },
             'lga': {
                 "clickable": true,
-                "color": '#244B54',
+                "color": '#e2095c',
                 "fillColor": '#FFFFFF',
-                "weight": 1.5,
+                "weight": 2.5,
                 "opacity": 0.7,
                 "fillOpacity": 0.1
             }
@@ -266,11 +267,13 @@ function addAdminLayersToMap(layers) {
     map.fitBounds(stateLayer.getBounds())
 
     // Adding LGA to Map
+    if(lgaLayer != null)
+      map.removeLayer(lgaLayer)
     lgaLayer = L.geoJson(layers['lga'], {
         filter: function(feature) {
-          return feature.properties.StateName === lgaSelect
-    },
-        style: layerStyles['lga'],
+          return feature.properties.LGAName === lgaSelect
+      },
+      style: layerStyles['lga'],
       }).addTo(map)
     map.fitBounds(lgaLayer.getBounds())
 }
@@ -330,40 +333,66 @@ function getAdminLayers() {
     $.get('resources/state_boundary.geojson', function (stateData) {
         //add admin layers to map
         adminLayers['state'] = JSON.parse(stateData)
-        $.get('resources/lga_boundary.geojson', function (lgaData) {
-            adminLayers['lga'] = JSON.parse(lgaData)
-                //return the layers
-
-        }).fail(function () {
-            logError(null)
-        })
-        addAdminLayersToMap(adminLayers)
+       addAdminLayersToMap(adminLayers)
     }).fail(function () {
         logError(null) //TODO: Fix this terrible code
-    })
+    });
+   $.get('resources/lga_boundary.geojson', function (lgaData) {
+            adminLayers['lga'] = JSON.parse(lgaData)
+                //return the layers
+             addAdminLayersToMap(adminLayers)
+        }).fail(function () {
+            logError(null)
+        });
 }
 
 function logError(error) {
     console.log("error!")
 }
 
-function dropDownState() {
-  var stateItem = [], stateList = []
-  $.get('resources/state_boundary.geojson', function (stateData) {
-    stateItem = JSON.parse(stateData)
-    console.log("Here:   ", stateItem)
-  })
 
+function typeCheckBox(type) {
+  var idType = typeList.indexOf(type)
+  if (idType > -1)
+    typeList.splice(idType, 1)
+  else if(idType == -1){
+    if (idType != null)
+      typeList.push(type)
+  }
+  console.log(type)
+  for(i = 0; i <typeList.length; i++){
+    console.log("Array List:  ", typeList[i])
+  }
 
-  var $StateName = $('#StateName');
-  $.each(stateItem, function () {
-
-    $('<option>' + this.features.properties.StateName + '</option>').appendTo($StateName);
-    //console.log("Testing Array Value:  ", feature.properties.StateName)
-  });
 }
 
-function zoomToLGA() {
+function serviceCheckBox(service) {
+    var idService = serviceList.indexOf(service)
+  if (idService > -1)
+    serviceList.splice(idService, 1)
+  else if(idService == -1){
+    if (idService != null)
+      serviceList.push(service)
+  }
+  console.log(service)
+  for(i = 0; i <serviceList.length; i++){
+    console.log("Array List:  ", serviceList[i])
+  }
+
+}
+
+function amenityCheckBox(amenity) {
+    var idAmenity = amenityList.indexOf(amenity)
+  if (idAmenity > -1)
+    amenityList.splice(idAmenity, 1)
+  else if(idAmenity == -1){
+    if (idAmenity != null)
+      amenityList.push(amenity)
+  }
+  console.log(amenity)
+  for(i = 0; i <amenityList.length; i++){
+    console.log("Array List:  ", amenityList[i])
+  }
 
 }
 

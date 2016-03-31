@@ -114,7 +114,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                   <h4><i class="icon fa fa-globe"></i>LGA Level</h4>
                     <div class="form-group">
-                      <select id="lgaScope" onChange="zoomToLGA()" class="form-control" style="visibility:hidden">
+                      <select id="lgaScope" onChange="getAdminLayers()" class="form-control" style="visibility:hidden">
 						<option value="">Select... </option>
                         <option value="Ajingi">Ajingi</option>
 						<option value="Albasu">Albasu</option>
@@ -162,14 +162,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<option value="Wudil">Wudil</option>
                       </select>
 			       </div>
+                  <h4><i class="icon fa fa-h-square"></i>HF Types</h4>
+                  <div class="form-group">
+                      <input type="checkbox" class="checkBoxType" value="Primary" onclick="typeCheckBox(this.value)"> Primary <br>
+                      <input type="checkbox" class="checkBoxType" value="Secondary" onclick="typeCheckBox(this.value)"> Secondary <br>
+                      <input type="checkbox" class="checkBoxType" value="Tertiary" onclick="typeCheckBox(this.value)"> Tertiary <br>
+                      <input type="checkbox" class="checkBoxType" value="Others" onclick="typeCheckBox(this.value)"> Others <br>
+                  </div>
+
+                  <h4><i class="icon fa fa-bed"></i>HF Services</h4>
+                  <div id="checkBoxTypeService" class="form-group">
+                      <input type="checkbox" class="checkBoxTypeService" value="ColdChain" onclick="serviceCheckBox(this.value)"> ColdChain <br>
+                      <input type="checkbox" class="checkBoxTypeService" value="Malaria" onclick="serviceCheckBox(this.value)"> Malaria <br>
+                      <input type="checkbox" class="checkBoxTypeService" value="Family Planning" onclick="serviceCheckBox(this.value)"> Family Planning <br>
+                      <input type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="serviceCheckBox(this.value)"> Antenatal <br>
+                      <input type="checkbox" class="checkBoxTypeService" value="HIV" onclick="serviceCheckBox(this.value)"> HIV <br>
+                  </div>
+
+                  <h4><i class="icon fa fa-lightbulb-o"></i>Amenities</h4>
+                  <div class="form-group">
+                      <input type="checkbox" class="checkBoxTypeAmenities" value="PHCN" onclick="amenityCheckBox(this.value)"> PHCN <br>
+                      <!--<input id="checkBoxTypeService" type="checkbox" name="Malaria"> Malaria <br>
+                      <input id="checkBoxTypeService" type="checkbox" name="Family Planning"> Family Planning <br>
+                      <input id="checkBoxTypeService" type="checkbox" name="Antenatal"> Antenatal <br>
+                      <input id="checkBoxTypeService" type="checkbox" name="HIV"> HIV <br>-->
+                  </div>
 
                 </div>
 
                 <div class="row"></div>
-                <div class="alert alert-info sideColor">
+                <!--<div class="alert alert-info sideColor">
                     <h4><i class="icon fa  fa-crosshairs"></i>Sector</h4>
                     <div class="box box-primary">
-                        <!--Buttons go here -->
+                        Buttons go here
                         <div class="box-body">
                             <div class="form-group">
                                 <button id="Education" onclick="buildSelectedSectors(this.id)" class="btn btn-sm btn-primary btnSector"><i class="fa fa-graduation-cap"></i> Education</button>
@@ -186,7 +211,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     </div>
 
-                </div>
+                </div>-->
 
 
 
