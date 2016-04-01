@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="alert alert-info sideColor">
                     <h4><i class="icon fa fa-globe"></i>State Level</h4>
                     <div class="form-group">
-                      <select id="stateScope" onchange=" lgaShow(); getAdminLayers()" class="form-control">
+                      <select id="stateScope" onchange=" lgaShow(); getAdminLayers(); triggerUiUpdate()" class="form-control">
                             <option value="">Select... </option>
                             <option value="Abia">Abia</option>
                             <option value="Adamawa">Adamawa</option>
@@ -134,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                   <h4><i class="icon fa fa-globe"></i>LGA Level</h4>
                     <div class="form-group">
-                      <select id="lgaScope" onChange="getAdminLayers()" class="form-control" style="visibility:hidden">
+                      <select id="lgaScope" onChange="getAdminLayers(); triggerUiUpdate()" class="form-control" style="visibility:hidden">
 						<option value="">Select... </option>
                         <option value="Ajingi">Ajingi</option>
 						<option value="Albasu">Albasu</option>
@@ -191,19 +191,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </div>
 
                   <h4><i class="icon fa fa-bed"></i>HF Services</h4>
-                  <div id="checkBoxTypeService" class="form-group">
-                      <input type="checkbox" class="checkBoxTypeService" value="ColdChain" onclick="serviceCheckBox(this.value)"> ColdChain <br>
-                      <input type="checkbox" class="checkBoxTypeService" value="Malaria" onclick="serviceCheckBox(this.value)"> Malaria <br>
-                      <input type="checkbox" class="checkBoxTypeService" value="Family Planning" onclick="serviceCheckBox(this.value)"> Family Planning <br>
-                      <input type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="serviceCheckBox(this.value)"> Antenatal <br>
-                      <input type="checkbox" class="checkBoxTypeService" value="HIV" onclick="serviceCheckBox(this.value)"> HIV <br>
-                      <input type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="serviceCheckBox(this.value)"> TB <br>
-                      <input type="checkbox" class="checkBoxTypeService" value="HIV" onclick="serviceCheckBox(this.value)"> HIV <br>
+                  <div class="form-group">
+                      <input id="ColdChain" type="checkbox" class="checkBoxTypeService" value="ColdChain" onclick="coldChainChk(); triggerUiUpdate()"> ColdChain <br>
+                      <input id="Malaria" type="checkbox" class="checkBoxTypeService" value="Malaria" onclick="coldChainChk(); triggerUiUpdate()"> Malaria <br>
+                      <input id="Family Planning" type="checkbox" class="checkBoxTypeService" value="Family Planning" onclick=""> Family Planning <br>
+                      <input id="Antenatal" type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="coldChainChk()"> Antenatal <br>
+                      <input id="HIV" type="checkbox" class="checkBoxTypeService" value="HIV" onclick="coldChainChk()"> HIV <br>
+                      <input id="TB" type="checkbox" class="checkBoxTypeService" value="TB" onclick="coldChainChk()"> TB <br>
+                      <input id="RI" type="checkbox" class="checkBoxTypeService" value="RI" onclick="coldChainChk()"> RI <br>
                   </div>
 
                   <h4><i class="icon fa fa-lightbulb-o"></i>Amenities</h4>
                   <div class="form-group">
-                      <input type="checkbox" class="checkBoxTypeAmenities" value="PHCN" onclick="amenityCheckBox(this.value)"> PHCN <br>
+                      <input id="PHCN" type="checkbox" class="checkBoxTypeAmenities" value="PHCN" onclick="coldChainChk()"> PHCN <br>
 
                   </div>
 

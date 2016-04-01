@@ -1,4 +1,4 @@
-var stateScope = '', lgaScope = '',
+var stateScope = '', lgaScope = '', coldchain = '', antenatal = '', malaria = '', family_planning = '', hiv = '', tb = '', ri = '', phcn = '',
     sectors = [],
     geoData = null,
     dataLayer = null,
@@ -43,10 +43,10 @@ L.control.scale({
 
 
 function triggerUiUpdate() {
-    stateScope = $('#stateScope').val()
-    lgaScope = $('#lgaScope').val()
-   // var query = buildQuery(scope, sectors)
-    //getData(query)
+    stateScope1 = $('#stateScope').val()
+    lgaScope1 = $('#lgaScope').val()
+    var query = buildQuery(stateScope1, lgaScope1)
+    getData(query)
 }
 
 
@@ -63,6 +63,7 @@ function lgaShow() {
 
 
 
+/*
 function buildSelectedSectors(sector) {
     var idx = sectors.indexOf(sector)
     if (idx > -1)
@@ -75,27 +76,31 @@ function buildSelectedSectors(sector) {
     triggerUiUpdate()
 }
 
+*/
 
 
-function buildQuery(stateSelect, lgaSelect, type, service, amenity) {
+function buildQuery(stateScope, lgaScope) {
   var needsAnd = false;
-  query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM conflict_and_security_data';
-  if (stateSelect.length > 0 || lgaSelect.length > 0 || type.length > 0 || service.length > 0 || amenity > 0){
+  query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4';
+  if (stateScope != null > 0 || lgaScope != null ){
+    console.log("State Selecte:  ", stateScope)
     query = query.concat(' WHERE')
-    if (conflictScenario.length > 0){
-      query = query.concat(" conflict_scenario = '".concat(conflictScenario.concat("'")))
+    if (stateScope.length > 0){
+      query = query.concat(" state_name = '".concat(stateScope.concat("'")))
       needsAnd = true
     }
-    if (monthSelect.length > 0){
-      query = needsAnd  ? query.concat(" AND event_month = '".concat(monthSelect.concat("'"))) :  query.concat(" event_month = '".concat(monthSelect.concat("'")))
+    if (lgaScope.length > 0){
+      query = needsAnd  ? query.concat(" AND lga_name = '".concat(lgaScope.concat("'"))) :  query.concat(" lga_name = '".concat(lgaScope.concat("'")))
       needsAnd = true
     }
+    /*if (type.length > 0){
+      query = needsAnd  ? query.concat(" AND type = '".concat(type.concat("'"))) :  query.concat(" type = '".concat(type.concat("'")))
+      needsAnd = true
+    }*/
 
-    if (yearRange.length > 1){
-      query = needsAnd  ? query.concat(" AND event_year BETWEEN ".concat(yearRange[0]).concat(" AND ".concat(yearRange[1]))) : query = query.concat(" event_year BETWEEN ".concat(yearRange[0]).concat(" AND ".concat(yearRange[1])))
-    }
 
-    else query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM conflict_and_security_data';
+
+    else query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4';
   }
   return query
 
@@ -103,7 +108,7 @@ function buildQuery(stateSelect, lgaSelect, type, service, amenity) {
 
 
 
-function buildQuery(_scope, _sectors) {
+/*function buildQuery(_scope, _sectors) {
     //returns geojson
     var containsAnd = false;
     query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4';
@@ -120,7 +125,7 @@ function buildQuery(_scope, _sectors) {
     }
     //console.log("Query ", query)
     return query;
-}
+}*/
 
 
 //TODO: fix the issue of lga layer not reoving after data filtering
@@ -237,7 +242,7 @@ function logError(error) {
 }
 
 
-function typeCheckBox(type) {
+/*function typeCheckBox(type) {
   var idType = typeList.indexOf(type)
   if (idType > -1)
     typeList.splice(idType, 1)
@@ -280,8 +285,169 @@ function amenityCheckBox(amenity) {
     console.log("Array List:  ", amenityList[i])
   }
 
+}*/
+
+function coldChainChk() {
+  if(document.getElementById("ColdChain").checked)
+    coldChain = 'ColdChain';
+  else
+    coldChain = ''
+
+  if(document.getElementById("Malaria").checked)
+    malaria = 'Malaria';
+  else
+    malaria = ''
+
+  if(document.getElementById("Family Planning").checked)
+    family_planning = 'Family Planning';
+  else
+    family_planning = ''
+
+  if(document.getElementById("Antenatal").checked)
+     antenatal = 'Antenatal';
+  else
+    antenatal = ''
+
+  if(document.getElementById("HIV").checked)
+     hiv = 'HIV';
+  else
+    hiv = ''
+
+  if(document.getElementById("TB").checked)
+     tb = 'TB';
+  else
+    tb = ''
+
+  if(document.getElementById("RI").checked)
+     ri = 'RI';
+  else
+    ri = ''
+
+   if(document.getElementById("PHCN").checked)
+     phcn = 'PHCN';
+  else
+    phcn = ''
+
+  console.log("ID = ", coldChain +"  "+ malaria +"  "+ antenatal +"  "+ tb +"  "+ ri)
 }
 
 
-getAdminLayers()
-triggerUiUpdate()
+function addDataToMap(geoData) {
+    // adjustLayerbyZoom(map.getZoom())
+    //remove all layers first
+
+    if (dataLayer != null)
+        map.removeLayer(dataLayer)
+
+    if (markerGroup != null)
+        map.removeLayer(markerGroup)
+
+
+    var _radius = 12
+    var _outColor = "#fff"
+    var _weight = 1
+    var _opacity = 1
+    var _fillOpacity = 1.0
+
+    var allColours = {
+        'Assassination/Homicide/Armed Robbery/Arm Assault': {
+            radius: _radius,
+            fillColor: "#ffff00",
+            color: _outColor,
+            weight: _weight,
+            opacity: _opacity,
+            fillOpacity: _fillOpacity
+        },
+        'Civil Conflicts': {
+            radius: _radius,
+            fillColor: "#008000",
+            color: _outColor,
+            weight: _weight,
+            opacity: _opacity,
+            fillOpacity: _fillOpacity
+        },
+        'Kidnapping/Abductions': {
+            radius: _radius,
+            fillColor: "#00ffff",
+            color: _outColor,
+            weight: _weight,
+            opacity: _opacity,
+            fillOpacity: _fillOpacity
+        },
+        'Insurgency/Terrorists Attacks': {
+            radius: _radius,
+            fillColor: "#ff0000",
+            color: _outColor,
+            weight: _weight,
+            opacity: _opacity,
+            fillOpacity: _fillOpacity
+        },
+        'Religious Conflicts': {
+            radius: _radius,
+            fillColor: "#800080",
+            color: _outColor,
+            weight: _weight,
+            opacity: _opacity,
+            fillOpacity: _fillOpacity
+        },
+        'Protests/Demonstrations': {
+            radius: _radius,
+            fillColor: "#a52a2a",
+            color: _outColor,
+            weight: _weight,
+            opacity: _opacity,
+            fillOpacity: _fillOpacity
+        },
+        'Others': {
+            radius: _radius,
+            fillColor: "#ff00ff",
+            color: _outColor,
+            weight: _weight,
+            opacity: _opacity,
+            fillOpacity: _fillOpacity
+        }
+    }
+
+
+    $('#projectCount').text(geoData.features.length)
+
+    markerGroup = L.markerClusterGroup({
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: true,
+            removeOutsideVisibleBounds: true
+        })
+        //console.log("geoData", geoData)
+    dataLayer = L.geoJson(geoData, {
+        pointToLayer: function (feature, latlng) {
+            var marker = L.circleMarker(latlng, allColours[feature.properties.conflicts_scenario])
+                //markerGroup.addLayer(marker);
+            return marker
+        },
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.cartodb_id) {
+                //layer.bindPopup(buildPopupContent(feature));
+                layer.on('click', function () {
+                    displayInfo(feature)
+                })
+            }
+
+        }
+
+    })
+
+    markerGroup.addLayer(dataLayer);
+    map.addLayer(markerGroup);
+
+}
+/*getAdminLayers()
+triggerUiUpdate()*/
+
+function buildPopupContent(feature) {
+    var subcontent = ''
+    var propertyNames = ['primary_na','state_name','lga_name', 'type', 'coldchain', 'malaria']
+    for (var i = 0; i < propertyNames.length; i++) {
+        subcontent = subcontent.concat('<p><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</p>')
+
+    }
+    return subcontent;
+}
