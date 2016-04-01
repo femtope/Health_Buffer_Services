@@ -43,9 +43,12 @@ L.control.scale({
 
 
 function triggerUiUpdate() {
+    coldChainChk()
+
     stateScope1 = $('#stateScope').val()
     lgaScope1 = $('#lgaScope').val()
-    var query = buildQuery(stateScope1, lgaScope1)
+
+    var query = buildQuery(stateScope1, lgaScope1, typeList, coldchain, ri, hiv, tb, family_planning, antenatal, malaria, phcn)
     getData(query)
 }
 
@@ -79,28 +82,88 @@ function buildSelectedSectors(sector) {
 */
 
 
-function buildQuery(stateScope, lgaScope) {
+function buildQuery(stateScope, lgaScope, type, coldchain, ri, hiv, tb, family_planning, antenatal, malaria, phcn) {
   var needsAnd = false;
-  query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4';
-  if (stateScope != null > 0 || lgaScope != null ){
+  query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4_copy';
+  if (stateScope != null || lgaScope != null || typeList.length > 0 || coldchain != null || malaria != null || antenatal != null || hiv != null || tb != null || ri != null || family_planning != null || phcn != null){
     console.log("State Selecte:  ", stateScope)
     query = query.concat(' WHERE')
     if (stateScope.length > 0){
       query = query.concat(" state_name = '".concat(stateScope.concat("'")))
       needsAnd = true
     }
+
     if (lgaScope.length > 0){
       query = needsAnd  ? query.concat(" AND lga_name = '".concat(lgaScope.concat("'"))) :  query.concat(" lga_name = '".concat(lgaScope.concat("'")))
       needsAnd = true
     }
-    /*if (type.length > 0){
-      query = needsAnd  ? query.concat(" AND type = '".concat(type.concat("'"))) :  query.concat(" type = '".concat(type.concat("'")))
+
+    if(coldchain.length > 0) {
+      query = needsAnd  ? query.concat(" AND coldchain = '".concat(coldchain.concat("'"))) :  query.concat(" coldchain = '".concat(coldchain.concat("'")))
       needsAnd = true
-    }*/
+    }
+
+    if(malaria.length > 0) {
+      query = needsAnd  ? query.concat(" AND malaria = '".concat(malaria.concat("'"))) :  query.concat(" malaria = '".concat(malaria.concat("'")))
+      needsAnd = true
+    }
+
+    if(antenatal.length > 0) {
+      query = needsAnd  ? query.concat(" AND antenatal = '".concat(antenatal.concat("'"))) :  query.concat(" antenatal = '".concat(antenatal.concat("'")))
+      needsAnd = true
+    }
+
+    if(hiv.length > 0) {
+      query = needsAnd  ? query.concat(" AND hiv = '".concat(hiv.concat("'"))) :  query.concat(" hiv = '".concat(hiv.concat("'")))
+      needsAnd = true
+
+      console.log("Hiv Query: ", query)
+    }
+
+    if(tb.length > 0) {
+      query = needsAnd  ? query.concat(" AND sphcda_tb = '".concat(tb.concat("'"))) :  query.concat(" sphcda_tb = '".concat(tb.concat("'")))
+      needsAnd = true
+
+      console.log("TB Query: ", query)
+    }
+
+    if(ri.length > 0) {
+      query = needsAnd  ? query.concat(" AND sphcda_ri_ = '".concat(ri.concat("'"))) :  query.concat(" sphcda_ri_ = '".concat(ri.concat("'")))
+      needsAnd = true
+
+      console.log("RI Query: ", query)
+    }
+
+    if(family_planning.length > 0) {
+      query = needsAnd  ? query.concat(" AND family_planning = '".concat(family_planning.concat("'"))) :  query.concat(" family_planning = '".concat(family_planning.concat("'")))
+      needsAnd = true
+
+      console.log("Family Query: ", query)
+    }
+
+    if(phcn.length > 0) {
+      query = needsAnd  ? query.concat(" AND phcn = '".concat(phcn.concat("'"))) :  query.concat(" phcn = '".concat(phcn.concat("'")))
+      needsAnd = true
+
+      console.log("PHCN Query: ", query)
+    }
+
+    if (typeList.length > 0){
+      for(var i = 0; i < typeList.length; i++) {
+        if (i == 0) {
+            query = needsAnd ? query.concat(" AND type IN ( '" + typeList[i] + "')") : query.concat(" type IN ( '".concat(typeList[i].concat("')")));
+        //console.log("Type Query Include:  ", query)
+          }
+
+        else
+          query = query.concat(" ,'" + typeList[i] + "')").replace(")", "")
+       // console.log("Type Query Include2:  ", query)
+      }
+    }
 
 
 
-    else query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4';
+   // else query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4';
   }
   return query
 
@@ -108,7 +171,8 @@ function buildQuery(stateScope, lgaScope) {
 
 
 
-/*function buildQuery(_scope, _sectors) {
+/*
+function buildQuery(_scope, _sectors) {
     //returns geojson
     var containsAnd = false;
     query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4';
@@ -125,7 +189,8 @@ function buildQuery(stateScope, lgaScope) {
     }
     //console.log("Query ", query)
     return query;
-}*/
+}
+*/
 
 
 //TODO: fix the issue of lga layer not reoving after data filtering
@@ -241,8 +306,7 @@ function logError(error) {
     console.log("error!")
 }
 
-
-/*function typeCheckBox(type) {
+function typeCheckBox(type) {
   var idType = typeList.indexOf(type)
   if (idType > -1)
     typeList.splice(idType, 1)
@@ -257,7 +321,8 @@ function logError(error) {
 
 }
 
-function serviceCheckBox(service) {
+
+/*function serviceCheckBox(service) {
     var idService = serviceList.indexOf(service)
   if (idService > -1)
     serviceList.splice(idService, 1)
@@ -289,46 +354,46 @@ function amenityCheckBox(amenity) {
 
 function coldChainChk() {
   if(document.getElementById("ColdChain").checked)
-    coldChain = 'ColdChain';
+    coldchain = 'Yes';
   else
-    coldChain = ''
+    coldchain = ''
 
   if(document.getElementById("Malaria").checked)
-    malaria = 'Malaria';
+    malaria = 'Yes';
   else
     malaria = ''
 
   if(document.getElementById("Family Planning").checked)
-    family_planning = 'Family Planning';
+    family_planning = 'Yes';
   else
     family_planning = ''
 
   if(document.getElementById("Antenatal").checked)
-     antenatal = 'Antenatal';
+     antenatal = 'Yes';
   else
     antenatal = ''
 
   if(document.getElementById("HIV").checked)
-     hiv = 'HIV';
+     hiv = 'Yes';
   else
     hiv = ''
 
   if(document.getElementById("TB").checked)
-     tb = 'TB';
+     tb = 'Yes';
   else
     tb = ''
 
   if(document.getElementById("RI").checked)
-     ri = 'RI';
+     ri = 'Yes';
   else
     ri = ''
 
    if(document.getElementById("PHCN").checked)
-     phcn = 'PHCN';
+     phcn = 'Yes';
   else
     phcn = ''
 
-  console.log("ID = ", coldChain +"  "+ malaria +"  "+ antenatal +"  "+ tb +"  "+ ri)
+  console.log("ID = ", coldchain +"  "+ malaria +"  "+ antenatal +"  "+ tb +"  "+ ri)
 }
 
 
@@ -444,7 +509,7 @@ triggerUiUpdate()*/
 
 function buildPopupContent(feature) {
     var subcontent = ''
-    var propertyNames = ['primary_na','state_name','lga_name', 'type', 'coldchain', 'malaria']
+    var propertyNames = ['primary_na','state_name','lga_name', 'type', 'coldchain', 'malaria', 'antenatal']
     for (var i = 0; i < propertyNames.length; i++) {
         subcontent = subcontent.concat('<p><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</p>')
 

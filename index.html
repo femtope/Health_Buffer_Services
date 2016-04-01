@@ -184,10 +184,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			       </div>
                   <h4><i class="icon fa fa-h-square"></i>HF Types</h4>
                   <div class="form-group">
-                      <input type="checkbox" class="checkBoxType" value="Primary" onclick="typeCheckBox(this.value)"> Primary <br>
-                      <input type="checkbox" class="checkBoxType" value="Secondary" onclick="typeCheckBox(this.value)"> Secondary <br>
-                      <input type="checkbox" class="checkBoxType" value="Tertiary" onclick="typeCheckBox(this.value)"> Tertiary <br>
-                      <input type="checkbox" class="checkBoxType" value="Others" onclick="typeCheckBox(this.value)"> Others <br>
+                      <input type="checkbox" class="checkBoxType" value="Primary" onclick="typeCheckBox(this.value); triggerUiUpdate()"> Primary <br>
+                      <input type="checkbox" class="checkBoxType" value="Secondary" onclick="typeCheckBox(this.value); triggerUiUpdate()"> Secondary <br>
+                      <input type="checkbox" class="checkBoxType" value="Tertiary" onclick="typeCheckBox(this.value); triggerUiUpdate()"> Tertiary <br>
+                      <input type="checkbox" class="checkBoxType" value="Others" onclick="typeCheckBox(this.value); triggerUiUpdate()"> Others <br>
                   </div>
 
                   <h4><i class="icon fa fa-bed"></i>HF Services</h4>
@@ -195,15 +195,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <input id="ColdChain" type="checkbox" class="checkBoxTypeService" value="ColdChain" onclick="coldChainChk(); triggerUiUpdate()"> ColdChain <br>
                       <input id="Malaria" type="checkbox" class="checkBoxTypeService" value="Malaria" onclick="coldChainChk(); triggerUiUpdate()"> Malaria <br>
                       <input id="Family Planning" type="checkbox" class="checkBoxTypeService" value="Family Planning" onclick=""> Family Planning <br>
-                      <input id="Antenatal" type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="coldChainChk()"> Antenatal <br>
-                      <input id="HIV" type="checkbox" class="checkBoxTypeService" value="HIV" onclick="coldChainChk()"> HIV <br>
-                      <input id="TB" type="checkbox" class="checkBoxTypeService" value="TB" onclick="coldChainChk()"> TB <br>
-                      <input id="RI" type="checkbox" class="checkBoxTypeService" value="RI" onclick="coldChainChk()"> RI <br>
+                      <input id="Antenatal" type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="coldChainChk(); triggerUiUpdate()"> Antenatal <br>
+                      <input id="HIV" type="checkbox" class="checkBoxTypeService" value="HIV" onclick="coldChainChk(); triggerUiUpdate()"> HIV <br>
+                      <input id="TB" type="checkbox" class="checkBoxTypeService" value="TB" onclick="coldChainChk(); triggerUiUpdate()"> TB <br>
+                      <input id="RI" type="checkbox" class="checkBoxTypeService" value="RI" onclick="coldChainChk(); triggerUiUpdate()"> RI <br>
                   </div>
 
                   <h4><i class="icon fa fa-lightbulb-o"></i>Amenities</h4>
                   <div class="form-group">
-                      <input id="PHCN" type="checkbox" class="checkBoxTypeAmenities" value="PHCN" onclick="coldChainChk()"> PHCN <br>
+                      <input id="PHCN" type="checkbox" class="checkBoxTypeAmenities" value="PHCN" onclick="coldChainChk(); triggerUiUpdate()"> PHCN <br>
 
                   </div>
 
@@ -221,7 +221,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="row"></div>
                 <div class="text-center">
                     <span class="info-box-text white">Currently Displaying:</span>
-                    <span class="info-box-number white"><big id="projectCount">0</big><small> Projects</small></span>
+                    <span class="info-box-number white"><big id="projectCount">0</big><small> Health Facility(ies)</small></span>
 
                 </div>
             </section>
