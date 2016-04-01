@@ -75,18 +75,7 @@ function buildSelectedSectors(sector) {
     triggerUiUpdate()
 }
 
-/*function toggleClass(id) {
-    console.log("Selected", id)
-    if (id != null) {
-        if ($('#'.concat(id)).hasClass('btn-primary')) {
-            $('#'.concat(id)).removeClass('btn-primary')
-            $('#'.concat(id)).addClass('btn-'.concat(id))
-        } else if ($('#'.concat(id)).hasClass('btn-'.concat(id))) {
-            $('#'.concat(id)).removeClass('btn-'.concat(id))
-            $('#'.concat(id)).addClass('btn-primary')
-        }
-    }
-}*/
+
 
 function buildQuery(stateSelect, lgaSelect, type, service, amenity) {
   var needsAnd = false;
@@ -135,106 +124,7 @@ function buildQuery(_scope, _sectors) {
 
 
 //TODO: fix the issue of lga layer not reoving after data filtering
-function addDataToMap(geoData) {
-    // adjustLayerbyZoom(map.getZoom())
-    //remove all layers first
 
-
-    if (dataLayer != null)
-        map.removeLayer(dataLayer)
-
-    if (markerGroup != null)
-        map.removeLayer(markerGroup)
-
-
-    var _radius = 10
-    var _outColor = "#fff"
-    var _weight = 1
-    var _opacity = 1
-    var _fillOpacity = 0.5
-
-    var allColours = {
-        'Nutrition': {
-            radius: _radius,
-            fillColor: "#ff7800",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Agriculture': {
-            radius: _radius,
-            fillColor: "#33cc33",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Health': {
-            radius: _radius,
-            fillColor: "#0099cc",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Education': {
-            radius: _radius,
-            fillColor: "#ffff66",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Research': {
-            radius: _radius,
-            fillColor: "#ee82ee",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Finance': {
-            radius: _radius,
-            fillColor: "#cc3300",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        }
-    }
-
-
-    $('#projectCount').text(geoData.features.length)
-
-    markerGroup = L.markerClusterGroup({
-            showCoverageOnHover: false,
-            zoomToBoundsOnClick: true,
-            removeOutsideVisibleBounds: true
-        })
-        //console.log("geoData", geoData)
-    dataLayer = L.geoJson(geoData, {
-        pointToLayer: function (feature, latlng) {
-            var marker = L.circleMarker(latlng, allColours[feature.properties.sector])
-                //markerGroup.addLayer(marker);
-            return marker
-        },
-        onEachFeature: function (feature, layer) {
-            if (feature.properties && feature.properties.cartodb_id) {
-                //layer.bindPopup(buildPopupContent(feature));
-                layer.on('click', function () {
-                    displayInfo(feature)
-                })
-            }
-
-        }
-
-    })
-
-    markerGroup.addLayer(dataLayer);
-    map.addLayer(markerGroup);
-
-}
 
 
 function addAdminLayersToMap(layers) {
@@ -300,15 +190,7 @@ function normalizeName(source) {
     return source
 }
 
-function buildPopupContent(feature) {
-    var subcontent = ''
-    var propertyNames = ['sector', 'state', 'scope_of_work', 'duration', 'bmgf_point', 'grantee_organisation', 'beneficiary', 'title_of_grant', 'nature_of_work', 'focal_state', 'organisation']
-    for (var i = 0; i < propertyNames.length; i++) {
-        subcontent = subcontent.concat('<p><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</p>')
 
-    }
-    return subcontent;
-}
 
 function showLoader() {
     $('.fa-spinner').addClass('fa-spin')
