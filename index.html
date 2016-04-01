@@ -31,7 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="plugins/MarkerCluster/MarkerCluster.css">
     <link rel="stylesheet" href="plugins/MarkerCluster/MarkerCluster.Default.css">
-    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="dist/css/jquery-ui.css">
 
 </head>
 
@@ -53,16 +53,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     </ul>
                 </div>
+
+
+              <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                    <input type="text" id="amount" class="" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 45px" onclick="triggerUIUpdate()">
+                </div>
+              </div>
+
+              <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                <h4 class="special-size1"><div id="slider-range" class="sliderlength"></div></h4>
+
+                </div>
+              </div>
+
+              <div class="navbar-custom-menu">
+                     <div class="alert alert-info sideColor">
+                        <h4 class="special-size1"><i class="fa fa-cog fa-spin fa-1x"></i>&nbsp;&nbsp;Buffer Analytics:  </h4>
+
+                  </div>
+                </div>
             </nav>
         </header>
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar main-sidebar-light sidebar_edit">
             <section class="sidebar">
                 <div class="row">
-                    <!--<h3 class="white text-center"><i class="icon fa fa-spinner"></i></h3>-->
+                    <h3 class="white text-center"></h3>
                 </div>
-                <div class="alert alert-info sideColor">
 
+                <div class="row">
+                    <h3 class="white text-center"></h3>
+                </div>
+
+                <div class="alert alert-info sideColor">
                     <h4><i class="icon fa fa-globe"></i>State Level</h4>
                     <div class="form-group">
                       <select id="stateScope" onchange=" lgaShow(); getAdminLayers()" class="form-control">
@@ -105,11 +130,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <option value="Yobe">Yobe</option>
                             <option value="Zamfara">Zamfara</option>
                         </select>
-                        <!--<select id="projectScope" onchange="buildSelectedSectors(null)" class="form-control">
-                            <option value="">All</option>
-                            <option value="National">National</option>
-                            <option value="State">State</option>
-                        </select>-->
                     </div>
 
                   <h4><i class="icon fa fa-globe"></i>LGA Level</h4>
@@ -176,6 +196,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <input type="checkbox" class="checkBoxTypeService" value="Malaria" onclick="serviceCheckBox(this.value)"> Malaria <br>
                       <input type="checkbox" class="checkBoxTypeService" value="Family Planning" onclick="serviceCheckBox(this.value)"> Family Planning <br>
                       <input type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="serviceCheckBox(this.value)"> Antenatal <br>
+                      <input type="checkbox" class="checkBoxTypeService" value="HIV" onclick="serviceCheckBox(this.value)"> HIV <br>
+                      <input type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="serviceCheckBox(this.value)"> TB <br>
                       <input type="checkbox" class="checkBoxTypeService" value="HIV" onclick="serviceCheckBox(this.value)"> HIV <br>
                   </div>
 
@@ -259,7 +281,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="col-md-12" id="map">
 
                 </div>
-                <!-- Your Page Content Here -->
+                <div>
+                  <h7 class="blue text-center"><i class="icon fa fa-spinner fa-5x" id="spinposition"></i></h7>
+                </div>
 
             </section>
             <!-- /.content -->
@@ -269,16 +293,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
-            <div class="pull-right hidden-xs">
-                <!--<span><img src="resources/eha-logo.png" alt="eHEalth Africa Logo"/></span>-->
+            <div>
+                <strong class="pad"></strong>
+              <span><strong>Copyright &copy; 2016 <a target="_blank" href="http://ehealthafrica.org">eHealth Africa</a>.</strong> All rights reserved.</span>
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2015 <a target="_blank" href="http://ehealthafrica.org">eHealth Africa</a>.</strong> All rights reserved.
+
         </footer>
 
         <!-- jQuery 2.1.4 -->
-
-        <script src="plugins/leaflet/leaflet.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="http://d3js.org/topojson.v1.min.js"></script>
+        <script src="dist/js/globe.js"></script>
         <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
         <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
         <script src="plugins/slimScroll/jquery.slimscroll.js"></script>
@@ -286,9 +312,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/app.min.js"></script>
-
+        <script src="plugins/leaflet/leaflet.js"></script>
         <script src="dist/js/main.js"></script>
         <script src="plugins/MarkerCluster/leaflet.markercluster-src.js"></script>
+
+        <!-- JQuery Slider -->
+        <script src="dist/js/jquery-ui.js"></script>
+        <script src="dist/js/slider.js"></script>
+
+
+
+
+
 
     </div>
 </body>

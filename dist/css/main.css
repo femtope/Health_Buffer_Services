@@ -125,8 +125,7 @@
 }
 
 .pad{
-    padding-left: 5px;
-    height: 1.1em;
+    padding-left: 900px;
 }
 .pad1{
     padding-top: 5px;
@@ -203,6 +202,13 @@
 }
 .dropdown-check-list.visible .items {
   display: block;
+}
+
+.sliderlength{
+    height: 1em;
+    width: 7em;
+    padding-bottom: 5px;
+    margin-top: 5px;
 }
 #spinposition {
     position: absolute;

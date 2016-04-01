@@ -1,17 +1,16 @@
 var lowerlimit, upperlimit;
 $(function() {
 $( "#slider-range" ).slider({
-range: true,
-min: 1997,
-max: 2015,
-values: [ 1997, 2015 ],
-stop: function( event, ui ) {
-  $( "#amount" ).val(ui.values[ 0 ] + "  -  " + ui.values[ 1 ] );
+range: "min",
+min: 0,
+max: 5,
+values: 0,
+slide: function( event, ui ) {
+  $( "#amount" ).val( ui.value + "  Km");
   triggerUiUpdate()
 }
 });
-$( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
-"  -  " + $( "#slider-range" ).slider( "values", 1 ) );
+$( "#amount" ).val($( "#slider-range" ).slider( "values" ) + "  Km" );
 });
 
 var a, b, c, yr, yrs = [], month, year, conType;

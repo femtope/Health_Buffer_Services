@@ -1,4 +1,4 @@
-var scope = '',
+var stateScope = '', lgaScope = '',
     sectors = [],
     geoData = null,
     dataLayer = null,
@@ -14,9 +14,7 @@ var map = L.map('map', {
     zoom: 7,
     zoomControl: false,
     minZoom: 6
-        /*,
-        crs: L.CRS.EPSG4326*/
-        //layers:[stateLayer]
+
 });
 
 
@@ -27,7 +25,6 @@ map.fitBounds([
 /*map.on('zoomend', function () {
     adjustLayerbyZoom(map.getZoom())
 })*/
-
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
@@ -44,29 +41,10 @@ L.control.scale({
     updateWhenIdle: true
 }).addTo(map);
 
-/*function adjustLayerbyZoom(zoomLevel) {
-
-    if (zoomLevel > 12) {
-        if (!showLga) {
-            map.addLayer(lgaLayer)
-                //Add labels to the LGAs
-            for (var i = 0; i < lgaLabels.length; i++) {
-                lgaLabels[i].addTo(map)
-            }
-            showLga = true
-        }
-    } else {
-        map.removeLayer(lgaLayer)
-        for (var i = 0; i < lgaLabels.length; i++) {
-            map.removeLayer(lgaLabels[i])
-        }
-
-        showLga = false
-    }
-}*/
 
 function triggerUiUpdate() {
-    scope = $('#projectScope').val()
+    stateScope = $('#stateScope').val()
+    lgaScope = $('#lgaScope').val()
    // var query = buildQuery(scope, sectors)
     //getData(query)
 }
@@ -97,8 +75,8 @@ function buildSelectedSectors(sector) {
     triggerUiUpdate()
 }
 
-function toggleClass(id) {
-    /*console.log("Selected", id)*/
+/*function toggleClass(id) {
+    console.log("Selected", id)
     if (id != null) {
         if ($('#'.concat(id)).hasClass('btn-primary')) {
             $('#'.concat(id)).removeClass('btn-primary')
@@ -108,12 +86,38 @@ function toggleClass(id) {
             $('#'.concat(id)).addClass('btn-primary')
         }
     }
+}*/
+
+function buildQuery(stateSelect, lgaSelect, type, service, amenity) {
+  var needsAnd = false;
+  query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM conflict_and_security_data';
+  if (stateSelect.length > 0 || lgaSelect.length > 0 || type.length > 0 || service.length > 0 || amenity > 0){
+    query = query.concat(' WHERE')
+    if (conflictScenario.length > 0){
+      query = query.concat(" conflict_scenario = '".concat(conflictScenario.concat("'")))
+      needsAnd = true
+    }
+    if (monthSelect.length > 0){
+      query = needsAnd  ? query.concat(" AND event_month = '".concat(monthSelect.concat("'"))) :  query.concat(" event_month = '".concat(monthSelect.concat("'")))
+      needsAnd = true
+    }
+
+    if (yearRange.length > 1){
+      query = needsAnd  ? query.concat(" AND event_year BETWEEN ".concat(yearRange[0]).concat(" AND ".concat(yearRange[1]))) : query = query.concat(" event_year BETWEEN ".concat(yearRange[0]).concat(" AND ".concat(yearRange[1])))
+    }
+
+    else query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM conflict_and_security_data';
+  }
+  return query
+
 }
+
+
 
 function buildQuery(_scope, _sectors) {
     //returns geojson
     var containsAnd = false;
-    query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM granteedata_copy';
+    query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4';
     query = (_scope.length > 0 || _sectors.length > 0) ? query.concat(' WHERE') : query;
     if (_scope.length > 0) {
         query = (_sectors.length > 0) ? query.concat(" scope_of_work = '".concat(scope.concat("' AND"))) : query.concat(" scope_of_work = '".concat(scope.concat("'")))
