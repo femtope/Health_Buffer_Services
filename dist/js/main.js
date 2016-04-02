@@ -1,7 +1,7 @@
 var stateScope = '', lgaScope = '', coldchain = '', antenatal = '', malaria = '', family_planning = '', hiv = '', tb = '', ri = '', phcn = '',
     sectors = [],
     geoData = null,
-    dataLayer = null,
+    dataLayer = null, buffered = null, bufferLayer = null,
     markerGroup = null,
     stateData = null,
     stateLayer = null, lgaLayer = null,
@@ -65,21 +65,6 @@ function lgaShow() {
 }
 
 
-
-/*
-function buildSelectedSectors(sector) {
-    var idx = sectors.indexOf(sector)
-    if (idx > -1)
-        sectors.splice(idx, 1)
-    else if (idx == -1) {
-        if (sector != null)
-            sectors.push(sector)
-    }
-    toggleClass(sector)
-    triggerUiUpdate()
-}
-
-*/
 
 
 function buildQuery(stateScope, lgaScope, type, coldchain, ri, hiv, tb, family_planning, antenatal, malaria, phcn) {
@@ -168,32 +153,6 @@ function buildQuery(stateScope, lgaScope, type, coldchain, ri, hiv, tb, family_p
   return query
 
 }
-
-
-
-/*
-function buildQuery(_scope, _sectors) {
-    //returns geojson
-    var containsAnd = false;
-    query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_4';
-    query = (_scope.length > 0 || _sectors.length > 0) ? query.concat(' WHERE') : query;
-    if (_scope.length > 0) {
-        query = (_sectors.length > 0) ? query.concat(" scope_of_work = '".concat(scope.concat("' AND"))) : query.concat(" scope_of_work = '".concat(scope.concat("'")))
-    }
-    if (_sectors.length > 0) {
-        for (var i = 0; i < _sectors.length; i++) {
-            if (i == 0)
-                query = query.concat(" sector='" + _sectors[i] + "'");
-            else query = query.concat(" OR sector='" + _sectors[i] + "'")
-        }
-    }
-    //console.log("Query ", query)
-    return query;
-}
-*/
-
-
-//TODO: fix the issue of lga layer not reoving after data filtering
 
 
 
@@ -322,35 +281,7 @@ function typeCheckBox(type) {
 }
 
 
-/*function serviceCheckBox(service) {
-    var idService = serviceList.indexOf(service)
-  if (idService > -1)
-    serviceList.splice(idService, 1)
-  else if(idService == -1){
-    if (idService != null)
-      serviceList.push(service)
-  }
-  console.log(service)
-  for(i = 0; i <serviceList.length; i++){
-    console.log("Array List:  ", serviceList[i])
-  }
 
-}
-
-function amenityCheckBox(amenity) {
-    var idAmenity = amenityList.indexOf(amenity)
-  if (idAmenity > -1)
-    amenityList.splice(idAmenity, 1)
-  else if(idAmenity == -1){
-    if (idAmenity != null)
-      amenityList.push(amenity)
-  }
-  console.log(amenity)
-  for(i = 0; i <amenityList.length; i++){
-    console.log("Array List:  ", amenityList[i])
-  }
-
-}*/
 
 function coldChainChk() {
   if(document.getElementById("ColdChain").checked)
@@ -407,23 +338,27 @@ function addDataToMap(geoData) {
     if (markerGroup != null)
         map.removeLayer(markerGroup)
 
+    if (bufferLayer != null)
+        map.removeLayer(bufferLayer)
+      //bufferLayer.remove();
 
-    var _radius = 12
+
+    var _radius = 8
     var _outColor = "#fff"
-    var _weight = 1
-    var _opacity = 1
-    var _fillOpacity = 1.0
+    var _weight = 2
+    var _opacity = 2
+    var _fillOpacity = 2.0
 
     var allColours = {
-        'Assassination/Homicide/Armed Robbery/Arm Assault': {
+        'Primary': {
             radius: _radius,
-            fillColor: "#ffff00",
+            fillColor: "#0000A0",
             color: _outColor,
             weight: _weight,
             opacity: _opacity,
             fillOpacity: _fillOpacity
         },
-        'Civil Conflicts': {
+        'Secondary': {
             radius: _radius,
             fillColor: "#008000",
             color: _outColor,
@@ -431,7 +366,7 @@ function addDataToMap(geoData) {
             opacity: _opacity,
             fillOpacity: _fillOpacity
         },
-        'Kidnapping/Abductions': {
+        'Tertiary': {
             radius: _radius,
             fillColor: "#00ffff",
             color: _outColor,
@@ -439,33 +374,9 @@ function addDataToMap(geoData) {
             opacity: _opacity,
             fillOpacity: _fillOpacity
         },
-        'Insurgency/Terrorists Attacks': {
-            radius: _radius,
-            fillColor: "#ff0000",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Religious Conflicts': {
-            radius: _radius,
-            fillColor: "#800080",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Protests/Demonstrations': {
-            radius: _radius,
-            fillColor: "#a52a2a",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
         'Others': {
             radius: _radius,
-            fillColor: "#ff00ff",
+            fillColor: "#ff0000",
             color: _outColor,
             weight: _weight,
             opacity: _opacity,
@@ -484,7 +395,7 @@ function addDataToMap(geoData) {
         //console.log("geoData", geoData)
     dataLayer = L.geoJson(geoData, {
         pointToLayer: function (feature, latlng) {
-            var marker = L.circleMarker(latlng, allColours[feature.properties.conflicts_scenario])
+            var marker = L.circleMarker(latlng, allColours[feature.properties.type])
                 //markerGroup.addLayer(marker);
             return marker
         },
@@ -502,10 +413,30 @@ function addDataToMap(geoData) {
 
     markerGroup.addLayer(dataLayer);
     map.addLayer(markerGroup);
+    var kmValue = document.getElementById("amount").value;
+    console.log("Buffer Value: ", kmValue);
+    var km = kmValue.split('  ');
+    var bufferValue = km[0];
+    console.log("Buffer Value: ", bufferValue);
+    var data = geoData;
+    var unit = 'kilometers';
+    buffered = turf.buffer(data, bufferValue, unit);
+    buffered.properties = {
+        "fillColor": "#f0f1ff",
+        "stroke": false,
+       // "stroke-width": 0,
+        "opacity": 0.1
+    };
+
+
+    bufferLayer = L.geoJson(buffered, {});
+    bufferLayer.addTo(map)
+
+
 
 }
-/*getAdminLayers()
-triggerUiUpdate()*/
+
+hideLoader()
 
 function buildPopupContent(feature) {
     var subcontent = ''
@@ -516,3 +447,4 @@ function buildPopupContent(feature) {
     }
     return subcontent;
 }
+

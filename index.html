@@ -36,6 +36,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 
 <body class="hold-transition skin-blue layout-top-nav">
+
+
     <div class="wrapper">
 
         <!-- Main Header -->
@@ -57,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               <div class="navbar-custom-menu">
               <div class="alert alert-info sideColor">
-                    <input type="text" id="amount" class="" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 45px" onclick="triggerUIUpdate()">
+                    <input type="text" id="amount" class="" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 45px">
                 </div>
               </div>
 
@@ -221,7 +223,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="row"></div>
                 <div class="text-center">
                     <span class="info-box-text white">Currently Displaying:</span>
-                    <span class="info-box-number white"><big id="projectCount">0</big><small> Health Facility(ies)</small></span>
+                    <span class="info-box-number white"><big id="projectCount">0</big><small> Health Facilities</small></span>
 
                 </div>
             </section>
@@ -256,6 +258,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <section class="content col-md-12">
 
                 <div class="col-md-12" id="map">
+                  <!--<a href="" class="legend"><font color="#000000"></font></a>-->
 
                 </div>
                 <div>
@@ -268,10 +271,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.content-wrapper -->
 
         <!-- Main Footer -->
-        <footer class="main-footer">
+        <footer class="main-footer skin-blue">
             <!-- To the right -->
+
             <div>
-                <strong class="pad"></strong>
+
+              <strong class="pad">
+
+              </strong>
               <span><strong>Copyright &copy; 2016 <a target="_blank" href="http://ehealthafrica.org">eHealth Africa</a>.</strong> All rights reserved.</span>
             </div>
             <!-- Default to the left -->
@@ -292,6 +299,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="plugins/leaflet/leaflet.js"></script>
         <script src="dist/js/main.js"></script>
         <script src="plugins/MarkerCluster/leaflet.markercluster-src.js"></script>
+
+        <!-- Turf Buffer -->
+        <script src="plugins/turf/turf.min.js"></script>
 
         <!-- JQuery Slider -->
         <script src="dist/js/jquery-ui.js"></script>
