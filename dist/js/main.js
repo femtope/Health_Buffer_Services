@@ -486,8 +486,10 @@ function addSettlementToMap(geoDataSettlement) {
           },
         onEachFeature: function (feature, layer) {
           if(feature.properties && feature.properties.cartodb_id) {
-            layer.on('click', function() {
+            layer.on('mouseover', function(e) {
               displaySettlement(feature)
+
+              //this.openPopup();
             })
           }
         }
