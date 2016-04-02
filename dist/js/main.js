@@ -1,8 +1,8 @@
 var stateScope = '', lgaScope = '', coldchain = '', antenatal = '', malaria = '', family_planning = '', hiv = '', tb = '', ri = '', phcn = '',
     sectors = [],
-    geoData = null,
-    dataLayer = null, buffered = null, bufferLayer = null,
-    markerGroup = null,
+    geoData = null, geoDataSettlement = null,
+    dataLayer = null, buffered = null, bufferLayer = null, settlementLayer = null,
+    markerGroup = null, settlementGroup = null,
     stateData = null,
     stateLayer = null, lgaLayer = null,
     lgaLabels = [],
@@ -448,3 +448,85 @@ function buildPopupContent(feature) {
     return subcontent;
 }
 
+
+function getSettlementData(queryUrl) {
+    showLoader()
+    $.post(queryUrl, function(data) {
+      hideLoader()
+      addSettlementToMap(data)
+    }).fail(function () {
+        console.log("error!!!")
+    });
+}
+
+function addSettlementToMap(geoDataSettlement) {
+
+    var markerOptions = L.icon({
+        iconUrl: "resources/iconMarker.png",
+        iconSize: [30, 30],
+        iconAnchor: [25, 25]
+    });
+
+    if(settlementLayer != null)
+      map.removeLayer(settlementLayer)
+
+    if(settlementGroup != null)
+      map.removeLayer(settlementGroup)
+
+      settlementGroup = L.markerClusterGroup({
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: true,
+            removeOutsideVisibleBounds: true
+      })
+
+      settlementLayer = L.geoJson(geoDataSettlement, {
+          pointToLayer: function (feature, layer) {
+            var settlementMarker = L.marker(layer, {icon: markerOptions})
+            return settlementMarker
+          },
+        onEachFeature: function (feature, layer) {
+          if(feature.properties && feature.properties.cartodb_id) {
+            layer.on('click', function() {
+              displaySettlement(feature)
+            })
+          }
+        }
+      })
+
+      map.addLayer(settlementLayer);
+}
+
+function querySettlement(lgaScope) {
+    querySet = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM kanopopnedited';
+    //querySet = (lgaScope.length > 0) ? querySet.concat(' WHERE ') : querySet;
+    if(lgaScope.length > 0) {
+        querySet = querySet.concat(' WHERE ');
+        querySet = querySet.concat(" lga = '".concat(lgaScope.concat("'")));
+    }
+  return querySet
+
+}
+
+function callSettlement() {
+    lgaScope2 = $('#lgaScope').val()
+    var querySet = querySettlement(lgaScope2);
+  console.log("Settlement Query:  ", querySet)
+    getSettlementData(querySet);
+}
+
+function displaySettlement(feature) {
+    //console.log('displaying info..')
+    var infoSettlement = buildPopupSettlement(feature)
+        //console.log("info", infoContent)
+    $('#infoSettlement').html(infoSettlement)
+}
+
+function buildPopupSettlement(feature) {
+    var subcontent = ''
+    var propertyNames = ['settleme_1', 'total']
+    for (var i = 0; i < propertyNames.length; i++) {
+        subcontent = subcontent.concat('<p><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</p>')
+
+    }
+    return subcontent;
+}

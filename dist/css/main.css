@@ -210,6 +210,14 @@
     padding-bottom: 5px;
     margin-top: 5px;
 }
+
+.sliderlength1{
+    height: 2em;
+    width: 100em;
+    padding-bottom: 5px;
+    margin-top: 5px;
+}
+
 #spinposition {
     position: absolute;
     top: 300px;
