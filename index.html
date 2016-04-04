@@ -57,29 +57,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
 
 
-              <div class="navbar-custom-menu">
+              <div class="navbar-custom-menu special-size1">
               <div class="alert alert-info sideColor">
-                    <input type="text" id="amount" class="" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 45px">
+                   <input id="twoKmBuffer" type="checkbox" class="checkboxTwo" style="height: 20px; width: 20px;" value="twoKmBuffer" onclick="checkSelected()"> 2km Buffer <br>
                 </div>
               </div>
 
-              <div class="navbar-custom-menu">
+              <div class="navbar-custom-menu special-size1">
               <div class="alert alert-info sideColor">
-                <h4 class="special-size1"><div id="slider-range" class="sliderlength"></div></h4>
-
+                   <input id="fiveKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxFive" value="fiveKmBuffer" onclick="checkSelected()"> 5km Buffer <br>
                 </div>
               </div>
 
-              <div class="navbar-custom-menu">
+              <div class="navbar-custom-menu special-size1">
+              <div class="alert alert-info sideColor">
+                    <input id="eightKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxEight" value="eightKmBuffer" onclick="checkSelected()"> 8km Buffer <br>
+                </div>
+              </div>
+
+
+
+              <!--<div class="navbar-custom-menu">
                      <div class="alert alert-info sideColor">
                         <h4 class="special-size1"><i class="fa fa-cog fa-spin fa-1x"></i>&nbsp;&nbsp;Buffer Analytics:  </h4>
 
                   </div>
-                </div>
+                </div>-->
 
               <div class="navbar-custom-menu">
               <div class="alert alert-info sideColor">
-                    <input type="button" id="amount" onclick="callSettlement()" value="Display Population" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 140px">
+                    <input type="button"  onclick="callSettlement()" value="Display Settlement" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 140px">
                 </div>
               </div>
 
@@ -217,18 +224,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                   </div>
 
+                  <h4><i class="icon fa fa-road"></i>Accesibility</h4>
+                  <div class="form-group">
+                      <input id="HTR" type="checkbox" class="checkBoxTypeHtr" value="HTR" onclick="coldChainChk(); triggerUiUpdate()"> HTR <br>
+
+                  </div>
+
                 </div>
-
-                <div class="row"></div>
-
-
-
-
-                <div class="row"></div>
 
             </section>
             <section class="sidebar">
-                <div class="row"></div>
                 <div class="text-center">
                     <span class="info-box-text white">Currently Displaying:</span>
                     <span class="info-box-number white"><big id="projectCount">0</big><small> Health Facilities</small></span>
@@ -237,7 +242,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </section>
 
             <section>
-                <div class="row"></div>
                 <div class="alert alert-info sideColor">
                     <!-- <h4><i class="icon fa  fa-info-circle"></i>Info</h4>-->
                     <div class="box box-primary box-solid">
@@ -249,7 +253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <!-- /.box-tools -->
                         </div>
                         <!-- /.box-header -->
-                        <div id="infoSettlement" class="box-body black info-box">
+                        <div id="infoContent" class="box-body black info-box">
                             <p>Click on any of the Project points to see full information here..</p>
                         </div>
                         <!-- /.box-body -->
