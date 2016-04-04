@@ -230,16 +230,26 @@
 }
 
 .legend {
-    line-height: 18px;
-    color: #555;
+  position: absolute;
+  top: 350px;
+  right: 100px;
+  width: 250px;
+  height:300px;
+  background-color:floralwhite;
+  z-index:10;
+  border: 5px;
+  border-color: black;
 }
-.legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
+.agric {
+    position: absolute;
+    top: 20px;
+    right: -150px;
+    width: 10px;
+    height:15px;
+    background: transparent;
+    z-index:10;
 }
+
 
 .label-icon {
     color: brown;

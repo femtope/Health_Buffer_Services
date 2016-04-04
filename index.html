@@ -58,20 +58,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
               <div class="navbar-custom-menu special-size1">
+
+
+
               <div class="alert alert-info sideColor">
-                   <input id="twoKmBuffer" type="checkbox" class="checkboxTwo" style="height: 20px; width: 20px;" value="twoKmBuffer" onclick="checkSelected()"> 2km Buffer <br>
+                <input id="twoKmBuffer" type="radio" name="rd-buffer" value="twoKmBuffer" onclick="checkSelected()">2km Buffer <br>
+<!--                   <input id="twoKmBuffer" type="checkbox" class="checkboxTwo" style="height: 20px; width: 20px;" value="twoKmBuffer" onclick="checkSelected()"> -->
                 </div>
               </div>
 
               <div class="navbar-custom-menu special-size1">
               <div class="alert alert-info sideColor">
-                   <input id="fiveKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxFive" value="fiveKmBuffer" onclick="checkSelected()"> 5km Buffer <br>
+                <input id="fiveKmBuffer" type="radio" name="rd-buffer" value="fiveKmBuffer" onclick="checkSelected()">5km Buffer<br>
+<!--                   <input id="fiveKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxFive" value="fiveKmBuffer" onclick="checkSelected()">  <br>-->
                 </div>
               </div>
 
               <div class="navbar-custom-menu special-size1">
               <div class="alert alert-info sideColor">
-                    <input id="eightKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxEight" value="eightKmBuffer" onclick="checkSelected()"> 8km Buffer <br>
+                <input id="eightKmBuffer" type="radio" name="rd-buffer" value="eightKmBuffer" onclick="checkSelected()">8km Buffer <br>
+<!--                    <input id="eightKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxEight" value="eightKmBuffer" onclick="checkSelected()"> -->
                 </div>
               </div>
 
@@ -84,9 +90,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </div>
                 </div>-->
 
+
+
+
+               <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                    <input type="button" id="button" onclick="toggle(this)" value="Toggle Settlement On" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 150px">
+                </div>
+              </div>
+
+
+
               <div class="navbar-custom-menu">
               <div class="alert alert-info sideColor">
-                    <input type="button"  onclick="callSettlement()" value="Display Settlement" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 140px">
+                    <div class="text-left">
+                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
+                      <img src="resources/health.PNG" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;Health Facility</big></span>
+                    </div>
+
+                <div class="row"></div>
+                <div class="text-left">
+                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
+                      <img src="resources/Settlements.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;Settlements</big></span>
+                    </div>
+
+                </div>
+              </div>
+
+
+              <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                    <div class="text-left">
+                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
+                      <img src="resources/circle_8km.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;8Km Buffer</big></span>
+                    </div>
+
+                <div class="row"></div>
+                <div class="text-left">
+                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
+                      <img src="resources/circle5km.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;5Km Buffer </big></span>
+                    </div>
+
+                </div>
+              </div>
+
+
+              <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                    <div class="text-left">
+                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
+                      <img src="resources/circle8Km.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;8Km Buffer</big></span>
+                    </div>
+
+
+                </div>
+              </div>
+
+
+              <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                    <h4 class="special-size1"><i class="fa 	fa fa-cogs fa-spin fa-1x"></i>&nbsp;&nbsp;KEYS:  </h4>
+
                 </div>
               </div>
 
@@ -270,9 +339,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <section class="content col-md-12">
 
                 <div class="col-md-12" id="map">
-                  <!--<a href="" class="legend"><font color="#000000"></font></a>
+                    <!--<a href="" class="legend"><font color="#000000"></font></a>-->
+                </div>
 
-                </div>-->
                 <div>
                   <h7 class="blue text-center"><i class="icon fa fa-spinner fa-5x" id="spinposition"></i></h7>
                 </div>

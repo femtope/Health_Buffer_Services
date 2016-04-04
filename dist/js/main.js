@@ -41,26 +41,6 @@ L.control.scale({
 }).addTo(map);
 
 
-function getColor(d) {
-		return d = "Health Facility" ? '#0000FF':
-				d = "2Km Buffer" ? '#D9FEB5':
-				d = "5Km Buffer" ? '#ffffcc':
-				d = "8Km Buffer" ? '#ffe1f0':
-                                    '#000000';
-	}
-
-    var legend = L.control({position: 'bottomright'});
-    legend .onAdd = function(map) {
-      var div = L.DomUtil.create('div', 'info legend');
-      categories = ['Health Facility', '2Km Buffer', '5Km Buffer', '8Km Buffer','Settlement'];
-      labels = [];
-
-      for (var i = 0; i < categories.length; i++) {
-        div.innerHTML += '<font face="Cambria" size="3"><i style="background:' + getColor(categories[i]) + '"></i>' + categories[i] + '</font><br>';
-      }
-      return div;
-    }
-legend.addTo(map);
 
 
 
@@ -91,6 +71,10 @@ function checkSelected() {
 			displayBuffer2KM();
 
 		}
+ /* else
+        {
+          map.removeLayer(buffer2KM)
+        }*/
 
 		if(document.getElementById("fiveKmBuffer").checked) {
 
@@ -98,7 +82,11 @@ function checkSelected() {
 			coldChainChk();
 			triggerUiUpdate();
 			displayBuffer5KM();
-		}
+	/*	}
+      else
+        {
+          buffer5KM.removeLayer();*/
+        }
 
 		if(document.getElementById("eightKmBuffer").checked) {
 
@@ -106,7 +94,11 @@ function checkSelected() {
 			triggerUiUpdate();
 			displayBuffer8KM();
 		}
-
+  /*else
+        {
+          buffer8KM.removeLayer();
+        }
+*/
 }
 
 
@@ -184,20 +176,64 @@ function getBuffer8KM(queryUrl) {
     });
 }
 
+function removeAllBuffers(bufferKm){
+  console.log('buffer ',bufferKm)
+  switch(bufferKm){
+    case 2:
+      {
+        if (buffer5KM != null)
+          map.removeLayer(buffer5KM)
+        if (buffer8KM != null)
+          map.removeLayer(buffer8KM)
+      break
+          }
+    case 5: {
+        if (buffer2KM != null)
+          map.removeLayer(buffer2KM)
+        if (buffer8KM != null)
+          map.removeLayer(buffer8KM)
+      break
+          }
+      case 8: {
+        if (buffer2KM != null)
+          map.removeLayer(buffer2KM)
+        if (buffer5KM != null)
+          map.removeLayer(buffer5KM)
+      break
+          }
+
+  }
+}
+
+
+function toggle(button){
+  if(button.value =="Toggle Settlement On")
+    {
+      callSettlement();
+      button.value="Toggle Settlement Off"
+
+    }
+  else
+    {
+      map.removeLayer(settlementLayer);
+      button.value="Toggle Settlement On"
+    }
+}
+
 
 
 function addBuffer2KMToMap(geoData) {
-    if (buffer2KM != null)
-        map.removeLayer(buffer2KM)
+    removeAllBuffers(2)
+
 
     var bufferStyle = {
 			"clickable": true,
 			"color": '#CCCCFF',
             "stroke": false,
-			"fillColor": '#d9feb5',
+			"fillColor": '#03f',
 			"weight": 0.0,
 			"opacity": 0.2,
-			"fillOpacity": 0.4
+			"fillOpacity": 0.3
 		}
 
 
@@ -230,6 +266,8 @@ function addBuffer2KMToMap(geoData) {
 
 
 function addBuffer5KMToMap(geoData) {
+   removeAllBuffers(5)
+
     if (buffer5KM != null)
         map.removeLayer(buffer5KM)
 
@@ -237,9 +275,9 @@ function addBuffer5KMToMap(geoData) {
 			"clickable": true,
 			"color": '#CCCCFF',
             "stroke": false,
-			"fillColor": '#ffffcc',
+			"fillColor": '#D3D3D3',
 			"weight": 0.0,
-			"opacity": 0.2,
+			"opacity": 0.3,
 			"fillOpacity": 0.4
 		}
 
@@ -274,6 +312,7 @@ function addBuffer5KMToMap(geoData) {
 
 
 function addBuffer8KMToMap(geoData) {
+   removeAllBuffers(8)
     if (buffer8KM != null)
        map.removeLayer(buffer8KM)
 
@@ -281,7 +320,7 @@ function addBuffer8KMToMap(geoData) {
 			"clickable": true,
 			"color": '#CCCCFF',
             "stroke": false,
-			"fillColor": '#ffe1f0',
+			"fillColor": '#856363',
 			"weight": 0.0,
 			"opacity": 0.2,
 			"fillOpacity": 0.4
