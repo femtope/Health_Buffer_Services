@@ -25,7 +25,8 @@ map.fitBounds([
 ])
 
 map.on('zoomend', function () {
-    //adjustLayerbyZoom(map.getZoom())
+    adjustLayerbyZoom(map.getZoom())
+  console.log("mAP zOOM:  ", map.getZoom())
 })
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -43,6 +44,31 @@ L.control.scale({
     updateWhenIdle: true
 }).addTo(map);
 
+function getColor(d) {
+		return d ? '#0000FF':
+				d ? '#D9FEB5':
+				d ? '#ffffcc':
+				d ? '#ffe1f0':
+				d ? '#000000':
+                    '';
+	}
+
+    var legend = L.control({position: 'bottomright'});
+    legend .onAdd = function(map) {
+      var div = L.DomUtil.create('div', 'info legend');
+      categories = ['Health Facility', '2Km Buffer', '5Km Buffer', '8Km Buffer','Settlement'];
+      labels = [];
+
+      for (var i = 0; i < categories.length; i++) {
+        div.innerHTML += '<i style="background:' + getColor(categories[i]) + '"></i>' + categories[i] + '<br>';
+      }
+      return div;
+    }
+legend.addTo(map);
+
+
+
+
 
 function triggerUiUpdate() {
     coldChainChk()
@@ -56,28 +82,28 @@ function triggerUiUpdate() {
 
 function checkSelected() {
 		if(document.getElementById("twoKmBuffer").checked) {
-			coldChainChk();
+
+            coldChainChk();
 			triggerUiUpdate();
-			displayBuffer2KM()
+			displayBuffer2KM();
+
 		}
-		/*else
-			map.removeLayer(buffer2KM)*/
 
 		if(document.getElementById("fiveKmBuffer").checked) {
+
+
 			coldChainChk();
 			triggerUiUpdate();
-			displayBuffer5KM()
+			displayBuffer5KM();
 		}
-		/*else
-			map.removeLayer(buffer5KM)*/
 
 		if(document.getElementById("eightKmBuffer").checked) {
+
 			coldChainChk();
 			triggerUiUpdate();
-			displayBuffer8KM()
+			displayBuffer8KM();
 		}
-		/*else
-			map.removeLayer(buffer8KM)*/
+
 }
 
 
@@ -165,10 +191,10 @@ function addBuffer2KMToMap(geoData) {
 			"clickable": true,
 			"color": '#CCCCFF',
             "stroke": false,
-			"fillColor": '#F8F8FF',
+			"fillColor": '#d9feb5',
 			"weight": 0.0,
 			"opacity": 0.2,
-			"fillOpacity": 0.6
+			"fillOpacity": 0.4
 		}
 
 
@@ -189,14 +215,13 @@ function addBuffer2KMToMap(geoData) {
                 var totalEligible = parseInt(feature.properties.sum_total_)
                 var totalPop = parseInt(feature.properties.sum_total)
                 var totalNonEligible = totalPop - totalEligible
-                layer.bindPopup('<font size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>MALE:   </strong>'+feature.properties.sum_male+'<br>'+'<strong>FEMALE:   </strong>'+feature.properties.sum_female+'<br>'+'<strong>TOTAL:   </strong>'+feature.properties.sum_total+'<br>'+'<strong>Under 5 Years:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> > 5 Years:   </strong>'+totalNonEligible+'<br></font>');
+                layer.bindPopup('<font face="Cambria" size="3"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>MALE: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_male+'<br>'+'<strong>FEMALE: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_female+'<br>'+'<strong>TOTAL: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_total+'<br>'+'<strong>Under 5 Years:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> > 5 Years:   </strong>'+totalNonEligible+'<br></font>');
 
             }
 
         }
 
     })
-
     map.addLayer(buffer2KM);
 }
 
@@ -212,7 +237,7 @@ function addBuffer5KMToMap(geoData) {
 			"fillColor": '#ffffcc',
 			"weight": 0.0,
 			"opacity": 0.2,
-			"fillOpacity": 0.6
+			"fillOpacity": 0.4
 		}
 
 
@@ -233,7 +258,7 @@ function addBuffer5KMToMap(geoData) {
                 var totalEligible = parseInt(feature.properties.sum_total_)
                 var totalPop = parseInt(feature.properties.sum_total)
                 var totalNonEligible = totalPop - totalEligible
-                layer.bindPopup('<font size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>MALE:   </strong>'+feature.properties.sum_male+'<br>'+'<strong>FEMALE:   </strong>'+feature.properties.sum_female+'<br>'+'<strong>TOTAL:   </strong>'+feature.properties.sum_total+'<br>'+'<strong>Under 5 Years:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> > 5 Years:   </strong>'+totalNonEligible+'<br></font>');
+                layer.bindPopup('<font face="Cambria" size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>MALE: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_male+'<br>'+'<strong>FEMALE: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_female+'<br>'+'<strong>TOTAL: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_total+'<br>'+'<strong>Under 5 Years:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> > 5 Years:   </strong>'+totalNonEligible+'<br></font>');
 
             }
 
@@ -256,7 +281,7 @@ function addBuffer8KMToMap(geoData) {
 			"fillColor": '#ffe1f0',
 			"weight": 0.0,
 			"opacity": 0.2,
-			"fillOpacity": 0.6
+			"fillOpacity": 0.4
 		}
 
 
@@ -277,7 +302,7 @@ function addBuffer8KMToMap(geoData) {
                 var totalEligible = parseInt(feature.properties.sum_total_)
                 var totalPop = parseInt(feature.properties.sum_total)
                 var totalNonEligible = totalPop - totalEligible
-                layer.bindPopup('<font size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>MALE:   </strong>'+feature.properties.sum_male+'<br>'+'<strong>FEMALE:   </strong>'+feature.properties.sum_female+'<br>'+'<strong>TOTAL:   </strong>'+feature.properties.sum_total+'<br>'+'<strong>Under 5 Years:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> > 5 Years:   </strong>'+totalNonEligible+'<br></font>');
+                layer.bindPopup('<font face="Cambria" size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>MALE:  &nbsp;&nbsp;&nbsp; </strong>'+feature.properties.sum_male+'<br>'+'<strong>FEMALE:&nbsp;&nbsp;&nbsp;   </strong>'+feature.properties.sum_female+'<br>'+'<strong>TOTAL: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_total+'<br>'+'<strong>Under 5 Years:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> > 5 Years:   </strong>'+totalNonEligible+'<br></font>');
 
             }
 
@@ -385,6 +410,7 @@ function buildQuery(stateScope, lgaScope, type, coldchain, ri, hiv, tb, family_p
 
 function addAdminLayersToMap(layers) {
 
+
     var layerStyles = {
             'state': {
                 "clickable": true,
@@ -436,8 +462,7 @@ function addAdminLayersToMap(layers) {
       }).addTo(map)
     map.fitBounds(lgaLayer.getBounds())
 
-    if(wardLayer != null)
-      map.removeLayer(wardLayer)
+
 
         wardLayer = L.geoJson(layers['ward'], {
           filter: function(feature) {
@@ -763,7 +788,7 @@ function buildPopupSettlement(feature) {
 
 function adjustLayerbyZoom(zoomLevel) {
     if (zoomLevel > 11) {
-        if (!showWard) {
+          if (!showWard) {
             map.addLayer(wardLayer)
                 //Add labels to the LGAs
             for (var i = 0; i < wardLabels.length; i++) {
@@ -771,9 +796,8 @@ function adjustLayerbyZoom(zoomLevel) {
             }
             showWard = true
         }
-    }
-  else {
-       // map.removeLayer(wardLayer)
+    } else {
+        map.removeLayer(wardLayer)
         for (var i = 0; i < wardLabels.length; i++) {
             map.removeLayer(wardLabels[i])
         }
