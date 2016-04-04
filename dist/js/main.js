@@ -3,7 +3,7 @@ var stateScope = '', lgaScope = '', coldchain = '', antenatal = '', malaria = ''
     geoData = null, geoDataSettlement = null,
     dataLayer = null, buffer2KM = null, buffer5KM = null, settlementLayer = null, buffer8KM = null,
     markerGroup = null, settlementGroup = null,
-    stateData = null, lgaData, wardData,
+    stateData = null, lgaData,
     stateLayer = null, lgaLayer = null, wardLayer = null,
     wardLabels = [],
     showWard = false,
@@ -24,10 +24,6 @@ map.fitBounds([
 
 ])
 
-map.on('zoomend', function () {
-    adjustLayerbyZoom(map.getZoom())
-  console.log("mAP zOOM:  ", map.getZoom())
-})
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
@@ -44,13 +40,13 @@ L.control.scale({
     updateWhenIdle: true
 }).addTo(map);
 
+
 function getColor(d) {
-		return d ? '#0000FF':
-				d ? '#D9FEB5':
-				d ? '#ffffcc':
-				d ? '#ffe1f0':
-				d ? '#000000':
-                    '';
+		return d = "Health Facility" ? '#0000FF':
+				d = "2Km Buffer" ? '#D9FEB5':
+				d = "5Km Buffer" ? '#ffffcc':
+				d = "8Km Buffer" ? '#ffe1f0':
+                                    '#000000';
 	}
 
     var legend = L.control({position: 'bottomright'});
@@ -60,7 +56,7 @@ function getColor(d) {
       labels = [];
 
       for (var i = 0; i < categories.length; i++) {
-        div.innerHTML += '<i style="background:' + getColor(categories[i]) + '"></i>' + categories[i] + '<br>';
+        div.innerHTML += '<font face="Cambria" size="3"><i style="background:' + getColor(categories[i]) + '"></i>' + categories[i] + '</font><br>';
       }
       return div;
     }
@@ -71,6 +67,12 @@ legend.addTo(map);
 
 
 function triggerUiUpdate() {
+   /* map.on('zoomend', function () {
+       stateScope4 = $('#stateScope').val()
+    lgaScope4 = $('#lgaScope').val()
+          adjustLayerbyZoom(map.getZoom())
+        });*/
+
     coldChainChk()
 
     stateScope1 = $('#stateScope').val()
@@ -78,6 +80,7 @@ function triggerUiUpdate() {
 
     var query = buildQuery(stateScope1, lgaScope1, typeList, coldchain, ri, hiv, tb, family_planning, antenatal, malaria, phcn, htr)
     getData(query)
+
 }
 
 function checkSelected() {
@@ -467,9 +470,8 @@ function addAdminLayersToMap(layers) {
         wardLayer = L.geoJson(layers['ward'], {
           filter: function(feature) {
             return feature.properties.ward
+            return feature.properties.state === stateSelect
             return feature.properties.lga === lgaSelect
-
-            console.log("Ward Name:", feature.properties.ward)
           },
         style: layerStyles['ward'],
         onEachFeature: function (feature, layer) {
@@ -480,7 +482,6 @@ function addAdminLayersToMap(layers) {
             wardLabels.push(L.marker(layer.getBounds().getCenter(), {
                     icon: labelIcon
                 }))
-                //layer.bindPopup(feature.properties.LGAName)
         }
     })
 }
@@ -539,18 +540,17 @@ function getAdminLayers() {
 
   $.get('resources/lga_boundary.geojson', function (lgaData) {
             adminLayers['lga'] = JSON.parse(lgaData)
-
-            $.get('resources/ward_boundary.geojson', function (wardData) {
-            adminLayers['ward'] = JSON.parse(wardData)
-                //return the layers
-             addAdminLayersToMap(adminLayers)
-        }).fail(function () {
-            logError(null)
-            })
+            addAdminLayersToMap(adminLayers)
         }).fail(function () {
             logError(null)
         })
 
+   $.get('resources/ward_boundary.geojson', function (wardData) {
+            adminLayers['ward'] = JSON.parse(wardData)
+             addAdminLayersToMap(adminLayers)
+        }).fail(function () {
+            logError(null)
+            })
 }
 
 function logError(error) {
@@ -787,6 +787,7 @@ function buildPopupSettlement(feature) {
 
 
 function adjustLayerbyZoom(zoomLevel) {
+
     if (zoomLevel > 11) {
           if (!showWard) {
             map.addLayer(wardLayer)
@@ -797,7 +798,7 @@ function adjustLayerbyZoom(zoomLevel) {
             showWard = true
         }
     } else {
-        map.removeLayer(wardLayer)
+       map.removeLayer(wardLayer)
         for (var i = 0; i < wardLabels.length; i++) {
             map.removeLayer(wardLabels[i])
         }
