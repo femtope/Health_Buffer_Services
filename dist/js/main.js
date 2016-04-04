@@ -223,6 +223,7 @@ function toggle(button){
 function toggle1(button) {
     if(button.value =="Toggle Buffer Off")
     {
+
       map.removeLayer(buffer2KM);
       map.removeLayer(buffer5KM);
       map.removeLayer(buffer8KM);
@@ -231,7 +232,9 @@ function toggle1(button) {
     }
   else
     {
-
+      $("#twoKmBuffer").prop("checked", false);
+      $("#fiveKmBuffer").prop("checked", false);
+     $("#eightKmBuffer").prop("checked", false);
     }
 }
 
@@ -268,7 +271,7 @@ function addBuffer2KMToMap(geoData) {
                 var totalEligible = parseInt(feature.properties.sum_total_)
                 var totalPop = parseInt(feature.properties.sum_total)
                 var totalNonEligible = totalPop - totalEligible
-                layer.bindPopup('<font face="Cambria" size="3"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>MALE: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_male+'<br>'+'<strong>FEMALE: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_female+'<br>'+'<strong>TOTAL: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_total+'<br>'+'<strong>Under 5 Years:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> > 5 Years:   </strong>'+totalNonEligible+'<br></font>');
+                layer.bindPopup('<font face="Cambria" size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>Under 5 Population:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> Above 5 Population:   </strong>'+totalNonEligible+'<br>'+'<strong>Male Population:  &nbsp;&nbsp;&nbsp; </strong>'+feature.properties.sum_male+'<br>'+'<strong>Female Population:&nbsp;&nbsp;&nbsp;   </strong>'+feature.properties.sum_female+'<br>'+'<strong>Total Population: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_total+'<br>'+'Source: Population Census Model...</font>');
 
             }
 
@@ -313,7 +316,7 @@ function addBuffer5KMToMap(geoData) {
                 var totalEligible = parseInt(feature.properties.sum_total_)
                 var totalPop = parseInt(feature.properties.sum_total)
                 var totalNonEligible = totalPop - totalEligible
-                layer.bindPopup('<font face="Cambria" size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>MALE: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_male+'<br>'+'<strong>FEMALE: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_female+'<br>'+'<strong>TOTAL: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_total+'<br>'+'<strong>Under 5 Years:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> > 5 Years:   </strong>'+totalNonEligible+'<br></font>');
+               layer.bindPopup('<font face="Cambria" size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>Under 5 Population:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> Above 5 Population:   </strong>'+totalNonEligible+'<br>'+'<strong>Male Population:  &nbsp;&nbsp;&nbsp; </strong>'+feature.properties.sum_male+'<br>'+'<strong>Female Population:&nbsp;&nbsp;&nbsp;   </strong>'+feature.properties.sum_female+'<br>'+'<strong>Total Population: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_total+'<br>'+'Source: Population Census Model...</font>');
 
             }
 
@@ -358,7 +361,7 @@ function addBuffer8KMToMap(geoData) {
                 var totalEligible = parseInt(feature.properties.sum_total_)
                 var totalPop = parseInt(feature.properties.sum_total)
                 var totalNonEligible = totalPop - totalEligible
-                layer.bindPopup('<font face="Cambria" size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>MALE:  &nbsp;&nbsp;&nbsp; </strong>'+feature.properties.sum_male+'<br>'+'<strong>FEMALE:&nbsp;&nbsp;&nbsp;   </strong>'+feature.properties.sum_female+'<br>'+'<strong>TOTAL: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_total+'<br>'+'<strong>Under 5 Years:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> > 5 Years:   </strong>'+totalNonEligible+'<br></font>');
+                layer.bindPopup('<font face="Cambria" size="4"> <strong>No. of Settlement:   </strong>'+feature.properties.count+'<br>'+'<strong>Under 5 Population:   </strong>'+feature.properties.sum_total_+'<br>'+'<strong> Above 5 Population:   </strong>'+totalNonEligible+'<br>'+'<strong>Male Population:  &nbsp;&nbsp;&nbsp; </strong>'+feature.properties.sum_male+'<br>'+'<strong>Female Population:&nbsp;&nbsp;&nbsp;   </strong>'+feature.properties.sum_female+'<br>'+'<strong>Total Population: &nbsp;&nbsp;&nbsp;  </strong>'+feature.properties.sum_total+'<br>'+'Source: Population Census Model...</font>');
 
             }
 
@@ -737,7 +740,7 @@ function buildPopupContent(feature) {
     var subcontent = ''
     var propertyNames = ['primary_name','lga_name', 'ward_name', 'phone_number', 'type']
     for (var i = 0; i < propertyNames.length; i++) {
-        subcontent = subcontent.concat('<p><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</p>')
+        subcontent = subcontent.concat('<p><font face="Cambria" size="3" class="small"><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</font></p>')
 
     }
     return subcontent;

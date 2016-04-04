@@ -259,3 +259,7 @@
 .checkbox {
     padding-left: 10px;
 }
+
+.small{
+    line-height: 90%;
+}
