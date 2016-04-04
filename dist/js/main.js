@@ -220,6 +220,20 @@ function toggle(button){
     }
 }
 
+function toggle1(button) {
+    if(button.value =="Toggle Buffer Off")
+    {
+      map.removeLayer(buffer2KM);
+      map.removeLayer(buffer5KM);
+      map.removeLayer(buffer8KM);
+      button.value="Toggle Settlement On"
+
+    }
+  else
+    {
+
+    }
+}
 
 
 function addBuffer2KMToMap(geoData) {
@@ -275,7 +289,7 @@ function addBuffer5KMToMap(geoData) {
 			"clickable": true,
 			"color": '#CCCCFF',
             "stroke": false,
-			"fillColor": '#D3D3D3',
+			"fillColor": '#E29937',
 			"weight": 0.0,
 			"opacity": 0.3,
 			"fillOpacity": 0.4
@@ -320,7 +334,7 @@ function addBuffer8KMToMap(geoData) {
 			"clickable": true,
 			"color": '#CCCCFF',
             "stroke": false,
-			"fillColor": '#856363',
+			"fillColor": '#D4BD5A',
 			"weight": 0.0,
 			"opacity": 0.2,
 			"fillOpacity": 0.4
@@ -721,7 +735,7 @@ hideLoader()
 
 function buildPopupContent(feature) {
     var subcontent = ''
-    var propertyNames = ['primary_name','lga_name', 'ward_name', 'phone_number', 'type', 'htr']
+    var propertyNames = ['primary_name','lga_name', 'ward_name', 'phone_number', 'type']
     for (var i = 0; i < propertyNames.length; i++) {
         subcontent = subcontent.concat('<p><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</p>')
 

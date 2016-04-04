@@ -96,6 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="navbar-custom-menu">
               <div class="alert alert-info sideColor">
                     <input type="button" id="button" onclick="toggle(this)" value="Toggle Settlement On" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 150px">
+                     <input type="button" id="buttonBuffer" onclick="toggle1(this)" value="Toggle Buffer Off" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 150px">
                 </div>
               </div>
 
@@ -154,7 +155,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               <div class="navbar-custom-menu">
               <div class="alert alert-info sideColor">
-                    <h4 class="special-size1"><i class="fa 	fa fa-cogs fa-spin fa-1x"></i>&nbsp;&nbsp;KEYS:  </h4>
+                    <h4 class="special-size1"><i class=""></i>&nbsp;&nbsp;KEYS:  </h4>
 
                 </div>
               </div>
@@ -168,10 +169,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="row">
                     <h3 class="white text-center"></h3>
                 </div>
+<!--
 
                 <div class="row">
                     <h3 class="white text-center"></h3>
                 </div>
+-->
 
                 <div class="alert alert-info sideColor">
                     <h4><i class="icon fa fa-globe"></i>State Level</h4>
@@ -274,44 +277,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <input type="checkbox" class="checkBoxType" value="Secondary" onclick="typeCheckBox(this.value); triggerUiUpdate()"> Secondary <br>
                       <input type="checkbox" class="checkBoxType" value="Tertiary" onclick="typeCheckBox(this.value); triggerUiUpdate()"> Tertiary <br>
                       <input type="checkbox" class="checkBoxType" value="Others" onclick="typeCheckBox(this.value); triggerUiUpdate()"> Others <br>
-                  </div>
-
-                  <h4><i class="icon fa fa-bed"></i>Health Facility Services</h4>
+                      <h4><i class="icon fa fa-bed"></i>Health Facility Services</h4>
                   <div class="form-group">
-                      <input id="ColdChain" type="checkbox" class="checkBoxTypeService" value="ColdChain" onclick="coldChainChk(); triggerUiUpdate()"> ColdChain <br>
                       <input id="Malaria" type="checkbox" class="checkBoxTypeService" value="Malaria" onclick="coldChainChk(); triggerUiUpdate()"> Malaria <br>
                       <input id="Family Planning" type="checkbox" class="checkBoxTypeService" value="Family Planning" onclick=""> Family Planning <br>
                       <input id="Antenatal" type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="coldChainChk(); triggerUiUpdate()"> Antenatal <br>
                       <input id="HIV" type="checkbox" class="checkBoxTypeService" value="HIV" onclick="coldChainChk(); triggerUiUpdate()"> HIV <br>
-                      <input id="TB" type="checkbox" class="checkBoxTypeService" value="TB" onclick="coldChainChk(); triggerUiUpdate()"> TB <br>
-                      <input id="RI" type="checkbox" class="checkBoxTypeService" value="RI" onclick="coldChainChk(); triggerUiUpdate()"> RI <br>
-                  </div>
-
-                  <h4><i class="icon fa fa-lightbulb-o"></i>Amenities</h4>
-                  <div class="form-group">
+                      <input id="TB" type="checkbox" class="checkBoxTypeService" value="TB" onclick="coldChainChk(); triggerUiUpdate()"> Tuberculosis  <br>
+                      <input id="RI" type="checkbox" class="checkBoxTypeService" value="RI" onclick="coldChainChk(); triggerUiUpdate()"> Routine Immunization <br>
+                <h4><i class="icon fa fa-lightbulb-o"></i>Amenities</h4>
+                      <input id="ColdChain" type="checkbox" class="checkBoxTypeService" value="ColdChain" onclick="coldChainChk(); triggerUiUpdate()"> Cold Chain Equipment (CCE) <br>
                       <input id="PHCN" type="checkbox" class="checkBoxTypeAmenities" value="PHCN" onclick="coldChainChk(); triggerUiUpdate()"> PHCN <br>
-
-                  </div>
-
+                  <br>
                   <h4><i class="icon fa fa-road"></i>Accesibility</h4>
                   <div class="form-group">
-                      <input id="HTR" type="checkbox" class="checkBoxTypeHtr" value="HTR" onclick="coldChainChk(); triggerUiUpdate()"> HTR <br>
-
+                      <input id="HTR" type="checkbox" class="checkBoxTypeHtr" value="HTR" onclick="coldChainChk(); triggerUiUpdate()"> Hard-To-Reach <br>
                   </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                    <span class="info-box-text white">Currently Displaying:</span>
+                    <span class="info-box-number white"><big id="projectCount">0</big><small> Health Facilities</small></span>
 
                 </div>
 
             </section>
             <section class="sidebar">
-                <div class="text-center">
-                    <span class="info-box-text white">Currently Displaying:</span>
-                    <span class="info-box-number white"><big id="projectCount">0</big><small> Health Facilities</small></span>
 
-                </div>
-            </section>
 
-            <section>
-                <div class="alert alert-info sideColor">
+              <div class="alert alert-info sideColor">
                     <!-- <h4><i class="icon fa  fa-info-circle"></i>Info</h4>-->
                     <div class="box box-primary box-solid">
                         <div class="box-header with-border">
@@ -329,6 +324,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
 
                 </div>
+            </section>
+
+            <section>
+
 
             </section>
         </aside>
