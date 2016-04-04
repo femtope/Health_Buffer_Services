@@ -740,7 +740,7 @@ function buildPopupContent(feature) {
     var subcontent = ''
     var propertyNames = ['primary_name','lga_name', 'ward_name', 'phone_number', 'type']
     for (var i = 0; i < propertyNames.length; i++) {
-        subcontent = subcontent.concat('<p><font face="Cambria" size="3" class="small"><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</font></p>')
+        subcontent = subcontent.concat('<p><font face="Cambria" size="2"><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</font></p>')
 
     }
     return subcontent;
