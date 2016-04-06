@@ -916,7 +916,7 @@ function buildQueryBuffer2KM(stateScope, lgaScope, type, coldchain, ri, hiv, tb,
     }
 
     if(family_planning.length > 0) {
-      queryBuffer = needsAnd  ? queryBuffer.concat(" AND family_planning = '".concat(family_planning.concat("'"))) :  queryBuffer.concat(" family_planning = '".concat(family_planning.concat("'")))
+      queryBuffer = needsAnd  ? queryBuffer.concat(" AND nmis_famil = '".concat(family_planning.concat("'"))) :  queryBuffer.concat(" nmis_famil = '".concat(family_planning.concat("'")))
       needsAnd = true
 
 
@@ -1007,7 +1007,7 @@ function buildQueryBuffer5KM(stateScope, lgaScope, type, coldchain, ri, hiv, tb,
     }
 
     if(family_planning.length > 0) {
-      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND family_planning = '".concat(family_planning.concat("'"))) :  queryBuffer5KM.concat(" family_planning = '".concat(family_planning.concat("'")))
+      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND nmis_famil = '".concat(family_planning.concat("'"))) :  queryBuffer5KM.concat(" nmis_famil = '".concat(family_planning.concat("'")))
       needsAnd = true
 
 
@@ -1098,7 +1098,7 @@ function buildQueryBuffer8KM(stateScope, lgaScope, type, coldchain, ri, hiv, tb,
     }
 
     if(family_planning.length > 0) {
-      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND family_planning = '".concat(family_planning.concat("'"))) :  queryBuffer8KM.concat(" family_planning = '".concat(family_planning.concat("'")))
+      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND nmis_famil = '".concat(family_planning.concat("'"))) :  queryBuffer8KM.concat(" nmis_famil = '".concat(family_planning.concat("'")))
       needsAnd = true
 
 

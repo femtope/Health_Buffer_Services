@@ -60,21 +60,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="navbar-custom-menu special-size1">
               <div class="alert alert-info sideColor">
 
-                <input id="twoKmBuffer" type="radio" name="rd-buffer" value="twoKmBuffer" onclick="checkSelected()">2km Drive Time <br>
+                <input id="twoKmBuffer" type="radio" name="rd-buffer" value="twoKmBuffer" onclick="checkSelected(); triggerUiUpdate()">2km Drive Time <br>
 <!--                   <input id="twoKmBuffer" type="checkbox" class="checkboxTwo" style="height: 20px; width: 20px;" value="twoKmBuffer" onclick="checkSelected()"> -->
                 </div>
               </div>
 
               <div class="navbar-custom-menu special-size1">
               <div class="alert alert-info sideColor">
-                <input id="fiveKmBuffer" type="radio" name="rd-buffer" value="fiveKmBuffer" onclick="checkSelected()">5km Drive Time<br>
+                <input id="fiveKmBuffer" type="radio" name="rd-buffer" value="fiveKmBuffer" onclick="checkSelected(); triggerUiUpdate()">5km Drive Time<br>
 <!--                   <input id="fiveKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxFive" value="fiveKmBuffer" onclick="checkSelected()">  <br>-->
                 </div>
               </div>
 
               <div class="navbar-custom-menu special-size1">
               <div class="alert alert-info sideColor">
-                <input id="eightKmBuffer" type="radio" name="rd-buffer" value="eightKmBuffer" onclick="checkSelected()">8km Drive Time <br>
+                <input id="eightKmBuffer" type="radio" name="rd-buffer" value="eightKmBuffer" onclick="checkSelected(); triggerUiUpdate()">8km Drive Time <br>
 <!--                    <input id="eightKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxEight" value="eightKmBuffer" onclick="checkSelected()"> -->
                 </div>
               </div>
@@ -267,7 +267,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <h4><i class="icon fa fa-bed"></i>Health Facility Services</h4>
                   <div class="form-group">
                       <input id="Malaria" type="checkbox" class="checkBoxTypeService" value="Malaria" onclick="coldChainChk(); triggerUiUpdate()"> Malaria <br>
-                      <input id="Family Planning" type="checkbox" class="checkBoxTypeService" value="Family Planning" onclick=""> Family Planning <br>
+                      <input id="Family Planning" type="checkbox" class="checkBoxTypeService" value="Family Planning" onclick="coldChainChk(); triggerUiUpdate()"> Family Planning <br>
                       <input id="Antenatal" type="checkbox" class="checkBoxTypeService" value="Antenatal" onclick="coldChainChk(); triggerUiUpdate()"> Antenatal <br>
                       <input id="HIV" type="checkbox" class="checkBoxTypeService" value="HIV" onclick="coldChainChk(); triggerUiUpdate()"> HIV <br>
                       <input id="TB" type="checkbox" class="checkBoxTypeService" value="TB" onclick="coldChainChk(); triggerUiUpdate()"> Tuberculosis  <br>
