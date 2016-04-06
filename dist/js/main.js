@@ -221,17 +221,19 @@ function toggle(button){
 }
 
 function toggle1(button) {
-    if(button.value =="Toggle Buffer Off")
+    if(button.value == "Toggle Catchment Off")
     {
 
+      button.value="Toggle Catchment On";
       map.removeLayer(buffer2KM);
       map.removeLayer(buffer5KM);
       map.removeLayer(buffer8KM);
-      button.value="Toggle Settlement On"
+
 
     }
   else
     {
+      button.value="Toggle Catchment Off";
       $("#twoKmBuffer").prop("checked", false);
       $("#fiveKmBuffer").prop("checked", false);
      $("#eightKmBuffer").prop("checked", false);
@@ -241,6 +243,8 @@ function toggle1(button) {
 
 function addBuffer2KMToMap(geoData) {
     removeAllBuffers(2)
+    if (buffer2KM != null)
+        map.removeLayer(buffer2KM)
 
 
     var bufferStyle = {
@@ -284,7 +288,6 @@ function addBuffer2KMToMap(geoData) {
 
 function addBuffer5KMToMap(geoData) {
    removeAllBuffers(5)
-
     if (buffer5KM != null)
         map.removeLayer(buffer5KM)
 
@@ -885,17 +888,17 @@ function buildQueryBuffer2KM(stateScope, lgaScope, type, coldchain, ri, hiv, tb,
     }
 
     if(malaria.length > 0) {
-      queryBuffer = needsAnd  ? queryBuffer.concat(" AND malaria = '".concat(malaria.concat("'"))) :  queryBuffer.concat(" malaria = '".concat(malaria.concat("'")))
+      queryBuffer = needsAnd  ? queryBuffer.concat(" AND nmis_malar = '".concat(malaria.concat("'"))) :  queryBuffer.concat(" nmis_malar = '".concat(malaria.concat("'")))
       needsAnd = true
     }
 
     if(antenatal.length > 0) {
-      queryBuffer = needsAnd  ? queryBuffer.concat(" AND antenatal = '".concat(antenatal.concat("'"))) :  queryBuffer.concat(" antenatal = '".concat(antenatal.concat("'")))
+      queryBuffer = needsAnd  ? queryBuffer.concat(" AND nmis_anten = '".concat(antenatal.concat("'"))) :  queryBuffer.concat(" nmis_anten = '".concat(antenatal.concat("'")))
       needsAnd = true
     }
 
     if(hiv.length > 0) {
-      queryBuffer = needsAnd  ? queryBuffer.concat(" AND hiv = '".concat(hiv.concat("'"))) :  queryBuffer.concat(" hiv = '".concat(hiv.concat("'")))
+      queryBuffer = needsAnd  ? queryBuffer.concat(" AND sphcda_hiv = '".concat(hiv.concat("'"))) :  queryBuffer.concat(" sphcda_hiv = '".concat(hiv.concat("'")))
       needsAnd = true
 
 
@@ -923,7 +926,7 @@ function buildQueryBuffer2KM(stateScope, lgaScope, type, coldchain, ri, hiv, tb,
     }
 
     if(phcn.length > 0) {
-      queryBuffer = needsAnd  ? queryBuffer.concat(" AND phcn = '".concat(phcn.concat("'"))) :  queryBuffer.concat(" phcn = '".concat(phcn.concat("'")))
+      queryBuffer = needsAnd  ? queryBuffer.concat(" AND nmis_phcn = '".concat(phcn.concat("'"))) :  queryBuffer.concat(" nmis_phcn = '".concat(phcn.concat("'")))
       needsAnd = true
 
 
@@ -976,17 +979,17 @@ function buildQueryBuffer5KM(stateScope, lgaScope, type, coldchain, ri, hiv, tb,
     }
 
     if(malaria.length > 0) {
-      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND malaria = '".concat(malaria.concat("'"))) :  queryBuffer5KM.concat(" malaria = '".concat(malaria.concat("'")))
+      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND nmis_malar = '".concat(malaria.concat("'"))) :  queryBuffer5KM.concat(" nmis_malar = '".concat(malaria.concat("'")))
       needsAnd = true
     }
 
     if(antenatal.length > 0) {
-      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND antenatal = '".concat(antenatal.concat("'"))) :  queryBuffer5KM.concat(" antenatal = '".concat(antenatal.concat("'")))
+      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND nmis_anten = '".concat(antenatal.concat("'"))) :  queryBuffer5KM.concat(" nmis_anten = '".concat(antenatal.concat("'")))
       needsAnd = true
     }
 
     if(hiv.length > 0) {
-      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND hiv = '".concat(hiv.concat("'"))) :  queryBuffer5KM.concat(" hiv = '".concat(hiv.concat("'")))
+      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND sphcda_hiv = '".concat(hiv.concat("'"))) :  queryBuffer5KM.concat(" sphcda_hiv = '".concat(hiv.concat("'")))
       needsAnd = true
 
 
@@ -1014,7 +1017,7 @@ function buildQueryBuffer5KM(stateScope, lgaScope, type, coldchain, ri, hiv, tb,
     }
 
     if(phcn.length > 0) {
-      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND phcn = '".concat(phcn.concat("'"))) :  queryBuffer5KM.concat(" phcn = '".concat(phcn.concat("'")))
+      queryBuffer5KM = needsAnd  ? queryBuffer5KM.concat(" AND nmis_phcn = '".concat(phcn.concat("'"))) :  queryBuffer5KM.concat(" nmis_phcn = '".concat(phcn.concat("'")))
       needsAnd = true
 
 
@@ -1067,17 +1070,17 @@ function buildQueryBuffer8KM(stateScope, lgaScope, type, coldchain, ri, hiv, tb,
     }
 
     if(malaria.length > 0) {
-      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND malaria = '".concat(malaria.concat("'"))) :  queryBuffer8KM.concat(" malaria = '".concat(malaria.concat("'")))
+      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND nmis_malar = '".concat(malaria.concat("'"))) :  queryBuffer8KM.concat(" nmis_malar = '".concat(malaria.concat("'")))
       needsAnd = true
     }
 
     if(antenatal.length > 0) {
-      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND antenatal = '".concat(antenatal.concat("'"))) :  queryBuffer8KM.concat(" antenatal = '".concat(antenatal.concat("'")))
+      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND nmis_anten = '".concat(antenatal.concat("'"))) :  queryBuffer8KM.concat(" nmis_anten = '".concat(antenatal.concat("'")))
       needsAnd = true
     }
 
     if(hiv.length > 0) {
-      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND hiv = '".concat(hiv.concat("'"))) :  queryBuffer8KM.concat(" hiv = '".concat(hiv.concat("'")))
+      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND sphcda_hiv = '".concat(hiv.concat("'"))) :  queryBuffer8KM.concat(" sphcda_hiv = '".concat(hiv.concat("'")))
       needsAnd = true
 
 
@@ -1105,7 +1108,7 @@ function buildQueryBuffer8KM(stateScope, lgaScope, type, coldchain, ri, hiv, tb,
     }
 
     if(phcn.length > 0) {
-      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND phcn = '".concat(phcn.concat("'"))) :  queryBuffer8KM.concat(" phcn = '".concat(phcn.concat("'")))
+      queryBuffer8KM = needsAnd  ? queryBuffer8KM.concat(" AND nmis_phcn = '".concat(phcn.concat("'"))) :  queryBuffer8KM.concat(" nmis_phcn = '".concat(phcn.concat("'")))
       needsAnd = true
 
 
