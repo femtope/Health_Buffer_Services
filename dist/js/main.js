@@ -233,7 +233,7 @@ function toggle1(button) {
     }
   else
     {
-      button.value="Toggle Catchment Off";
+      button.value="Toggle Catchment On";
       $("#twoKmBuffer").prop("checked", false);
       $("#fiveKmBuffer").prop("checked", false);
      $("#eightKmBuffer").prop("checked", false);
