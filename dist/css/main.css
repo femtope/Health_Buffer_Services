@@ -268,3 +268,21 @@
     padding-top: 5px;
     padding-right: 5px;
 }
+
+#detailPosition{
+    position: absolute;
+    top: 170px;
+    left: 1550px;
+    width: 380px;
+    height: 100px;
+    background: transparent;
+}
+
+#detailPosition1{
+    position: absolute;
+    top: 65px;
+    right: 5px;
+    width: 380px;
+    height: 100px;
+    background: transparent;
+}
