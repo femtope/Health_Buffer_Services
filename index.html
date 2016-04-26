@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--<meta charset="utf-8">-->
     <title>Health Facility Services | eHealth Africa</title>
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" >
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -59,95 +55,110 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
 
 
-              <div class="navbar-custom-menu special-size1">
+              <div class="navbar-custom-menu special-sizes">
               <div class="alert alert-info sideColor">
-
                 <input id="twoKmBuffer" type="radio" name="rd-buffer" value="twoKmBuffer" onclick="checkSelected(); triggerUiUpdate()">2km Drive Time <br>
-<!--                   <input id="twoKmBuffer" type="checkbox" class="checkboxTwo" style="height: 20px; width: 20px;" value="twoKmBuffer" onclick="checkSelected()"> -->
+                <div class="text-left">
+                        <img src="resources/circle_buffer2km_1.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;2Km Buffer</big></span>
                 </div>
+                </div>
+
               </div>
 
-              <div class="navbar-custom-menu special-size1">
+              <div class="navbar-custom-menu special-sizes">
               <div class="alert alert-info sideColor">
                 <input id="fiveKmBuffer" type="radio" name="rd-buffer" value="fiveKmBuffer" onclick="checkSelected(); triggerUiUpdate()">5km Drive Time<br>
-<!--                   <input id="fiveKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxFive" value="fiveKmBuffer" onclick="checkSelected()">  <br>-->
-                </div>
-              </div>
-
-              <div class="navbar-custom-menu special-size1">
-              <div class="alert alert-info sideColor">
-                <input id="eightKmBuffer" type="radio" name="rd-buffer" value="eightKmBuffer" onclick="checkSelected(); triggerUiUpdate()">8km Drive Time <br>
-<!--                    <input id="eightKmBuffer" type="checkbox" style="height: 20px; width: 20px;" class="checkBoxEight" value="eightKmBuffer" onclick="checkSelected()"> -->
-                </div>
-              </div>
-
-
-               <div class="navbar-custom-menu">
-              <div class="alert alert-info sideColor">
-                    <input type="button" id="button" onclick="toggle(this)" value="Toggle Settlement On" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 150px">
-                     <input type="button" id="buttonBuffer" onclick="toggle1(this)" value="Toggle Catchment Off" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 150px">
-                </div>
-              </div>
-
-
-
-              <div class="navbar-custom-menu">
-              <div class="alert alert-info sideColor">
-                    <div class="text-left">
-                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
-                      <img src="resources/health.PNG" height="25" width="25">
-                        <span class="progress-text white"><big>&nbsp;&nbsp;Health Facility</big></span>
-                    </div>
-
-                <div class="row"></div>
                 <div class="text-left">
-                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
-                      <img src="resources/Settlements.png" height="25" width="25">
-                        <span class="progress-text white"><big>&nbsp;&nbsp;Settlements</big></span>
-                    </div>
-
-                </div>
-              </div>
-
-
-              <div class="navbar-custom-menu">
-              <div class="alert alert-info sideColor">
-                    <div class="text-left">
-                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
-                      <img src="resources/circle_buffer2km_1.png" height="25" width="25">
-                        <span class="progress-text white"><big>&nbsp;&nbsp;2Km Buffer</big></span>
-                    </div>
-
-                <div class="row"></div>
-                <div class="text-left">
-                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
                       <img src="resources/circle5KM.png" height="25" width="25">
                         <span class="progress-text white"><big>&nbsp;&nbsp;5Km Buffer </big></span>
-                    </div>
-
+                </div>
                 </div>
               </div>
 
-
-              <div class="navbar-custom-menu">
+              <div class="navbar-custom-menu special-sizes">
               <div class="alert alert-info sideColor">
-                    <div class="text-left">
-                      <!--<input type="text" value="" readonly style="boder:2; color:#0000FF; width: 10px background-color: #0000ff">-->
+                <input id="eightKmBuffer" type="radio" name="rd-buffer" value="eightKmBuffer" onclick="checkSelected(); triggerUiUpdate()">8km Drive Time <br>
+                <div class="text-left">
                       <img src="resources/circle8KM.png" height="25" width="25">
                         <span class="progress-text white"><big>&nbsp;&nbsp;8Km Buffer</big></span>
                     </div>
+                </div>
+              </div>
 
+              <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                    <input type="button" id="button" onclick="toggle(this)" value="Toggle Settlement On" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 150px">
+                    <input type="button" id="buttonBuffer" onclick="toggle1(this)" value="Toggle Catchment Off" readonly style="border:1; color:#000000; font-weight:bold; text-align:left; width: 150px">
+                    <div class="text-left row">
+                      <img src="resources/health.PNG" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;Health Facility</big></span>
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <img src="resources/Settlements.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;Settlements</big></span>
+                    </div>
+                </div>
+              </div>
+              <div>
+                <div class="alert alert-info sideColor pad1">
+                    <h4 class="special-size1"><i class=""></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KEYS:  </h4>
+                </div>
+              </div>
+
+
+
+              <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                    <!--<div class="text-left">
+                      <img src="resources/health.PNG" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;Health Facility</big></span>
+                    </div>-->
+
+                <div class="row"></div>
+                <!--<div class="text-left">
+                      <img src="resources/Settlements.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;Settlements</big></span>
+                    </div>-->
 
                 </div>
               </div>
 
 
               <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                    <!--<div class="text-left">
+                        <img src="resources/circle_buffer2km_1.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;2Km Buffer</big></span>
+                    </div>-->
+
+                <div class="row"></div>
+                <!--<div class="text-left">
+                      <img src="resources/circle5KM.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;5Km Buffer </big></span>
+                    </div>-->
+
+                </div>
+              </div>
+
+
+              <div class="navbar-custom-menu">
+              <div class="alert alert-info sideColor">
+                    <!--<div class="text-left">
+                      <img src="resources/circle8KM.png" height="25" width="25">
+                        <span class="progress-text white"><big>&nbsp;&nbsp;8Km Buffer</big></span>
+                    </div>-->
+
+
+                </div>
+              </div>
+
+
+              <!--<div class="navbar-custom-menu">
               <div class="alert alert-info sideColor">
                     <h4 class="special-size1"><i class=""></i>&nbsp;&nbsp;KEYS:  </h4>
 
                 </div>
-              </div>
+              </div>-->
 
 
             </nav>
